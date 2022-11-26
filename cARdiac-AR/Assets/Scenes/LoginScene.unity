@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 211722935}
   - component: {fileID: 211722934}
   - component: {fileID: 211722933}
+  - component: {fileID: 211722940}
   m_Layer: 0
   m_Name: LoginButton
   m_TagString: Untagged
@@ -816,6 +817,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.096, y: 0.032, z: 0.016}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &211722940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211722931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.92156863, g: 0.92156863, b: 0.92156863, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &230038885
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +969,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec72a3a105768f746b556a8dfdae61a8, type: 2}
+  - {fileID: 2100000, guid: f148240cdb4625141b7d020f801e45d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
