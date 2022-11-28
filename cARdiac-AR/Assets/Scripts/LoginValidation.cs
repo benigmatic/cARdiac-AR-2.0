@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LoginValidation : MonoBehaviour
@@ -24,6 +25,8 @@ public class LoginValidation : MonoBehaviour
         if (eInput == "123@aol.com" && pInput == "123")
         {
             Debug.Log("Login Successful :)");
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else if (eInput == "" || pInput == "")
         {
