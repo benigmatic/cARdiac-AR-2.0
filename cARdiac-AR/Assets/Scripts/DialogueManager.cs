@@ -12,21 +12,14 @@ public class DialogueManager : MonoBehaviour
     int activeMessage = 0;
     public static bool isActive = false;
 
-    public void OpenDialogue(Message[] messages) {
-        currentMessages = messages;
-        activeMessage = 0;
-        isActive = true;
-
-        Debug.Log("Started conversation! Loaded messages: "+ messages.Length);
-        DisplayMessage();
-    }
-
     void DisplayMessage() {
         Message messageToDisplay = currentMessages[activeMessage];
         messageText.text = messageToDisplay.message;
     }
 
-    public void NextMessage(){
+    public void NextMessage(Message[] messages){
+        currentMessages = messages;
+        isActive = true;
         activeMessage++;
 
         if (activeMessage < currentMessages.Length) {
@@ -46,8 +39,6 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown && isActive){
-            NextMessage();
-        }
+
     }
 }

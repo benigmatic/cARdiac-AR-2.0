@@ -7,7 +7,7 @@ public class DialogueTrigger : MonoBehaviour
     public Message[] messages;
 
     public void StartDialogue(){
-        FindObjectOfType<DialogueManager>().OpenDialogue(messages);
+        FindObjectOfType<DialogueManager>().NextMessage(messages);
     }
 }
 
@@ -16,3 +16,4 @@ public class DialogueTrigger : MonoBehaviour
 public class Message {
     public string message;
 }
+
