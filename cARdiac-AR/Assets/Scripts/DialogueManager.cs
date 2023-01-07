@@ -8,9 +8,10 @@ public class DialogueManager : MonoBehaviour
 {
     public TMP_Text messageText;
 
+    public GameObject hiddenObject;
+
     Message[] currentMessages;
     int activeMessage = 0;
-    public static bool isActive = false;
 
     void DisplayMessage() {
         Message messageToDisplay = currentMessages[activeMessage];
@@ -19,21 +20,25 @@ public class DialogueManager : MonoBehaviour
 
     public void NextMessage(Message[] messages){
         currentMessages = messages;
-        isActive = true;
         activeMessage++;
+
+        // If the tutorial is past the third prompt reveal the object.
+        if (activeMessage > 2)
+        {
+            hiddenObject.SetActive(true);
+        }
 
         if (activeMessage < currentMessages.Length) {
             DisplayMessage();
         } else {
             Debug.Log("Conversation has ended! "+ currentMessages.Length);
-            isActive = false;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hiddenObject.SetActive(false);
     }
 
     // Update is called once per frame
