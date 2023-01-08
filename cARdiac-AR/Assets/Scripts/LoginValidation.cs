@@ -11,11 +11,15 @@ public class LoginValidation : MonoBehaviour
 
     public TMP_InputField password;
 
+    public TMP_Text errorText;
+
     public GameObject[] canvas;
 
     private void Start()
     {
         canvas[0].SetActive(true);
+
+        errorText.enabled = false;
     }
     public void CheckValidation()
     {
@@ -31,10 +35,12 @@ public class LoginValidation : MonoBehaviour
         else if (eInput == "" || pInput == "")
         {
             Debug.Log("Login failed. Please enter correct email/password");
+            errorText.enabled = true;
         }
         else
         {
             Debug.Log("Please enter a email/password");
+            errorText.enabled = true;
         }
     }
 }
