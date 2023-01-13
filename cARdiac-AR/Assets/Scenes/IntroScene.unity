@@ -261,8 +261,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78953843}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2}
-  m_LocalScale: {x: 2, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 755327044}
   - {fileID: 1174911276}
@@ -480,7 +480,7 @@ MonoBehaviour:
   trackedHandedness: 3
   trackedHandJoint: 2
   transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0.65, z: 0}
+  additionalOffset: {x: 0, y: 0.3, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
 --- !u!114 &78953852
@@ -528,9 +528,9 @@ MonoBehaviour:
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
   pivotAxis: 7
-  minDistance: 0.5
-  maxDistance: 3
-  defaultDistance: 2
+  minDistance: 0
+  maxDistance: 4
+  defaultDistance: 1
   maxViewHorizontalDegrees: 40
   maxViewVerticalDegrees: 30
   reorientWhenOutsideParameters: 1
@@ -539,7 +539,7 @@ MonoBehaviour:
   ignoreDistanceClamp: 0
   ignoreReferencePitchAndRoll: 0
   pitchOffset: 0
-  verticalMaxDistance: 2
+  verticalMaxDistance: 4
   angularClampMode: 0
   tetherAngleSteps: 6
   boundsScaler: 1
@@ -947,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.07, y: -0.002}
+  m_AnchoredPosition: {x: -0.07, y: -0.01}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589220808
