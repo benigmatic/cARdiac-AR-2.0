@@ -595,6 +595,8 @@ GameObject:
   - component: {fileID: 102539871}
   - component: {fileID: 102539870}
   - component: {fileID: 102539869}
+  - component: {fileID: 102539874}
+  - component: {fileID: 102539875}
   m_Layer: 5
   m_Name: InputFieldPass
   m_TagString: Untagged
@@ -635,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventsToReceive: 0
-  debounceThreshold: 0.05
+  debounceThreshold: 0.01
 --- !u!114 &102539870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,6 +711,57 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!65 &102539874
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102539867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &102539875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102539867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98e7663599230e419addf153615c144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingButtonVisuals: {fileID: 102539867}
+  distanceSpaceMode: 1
+  startPushDistance: 0
+  maxPushDistance: 0.2
+  pressDistance: 0.02
+  releaseDistanceDelta: 0.01
+  returnSpeed: 25
+  releaseOnTouchEnd: 1
+  enforceFrontPush: 1
+  TouchBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  TouchEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  movingButtonIconText: {fileID: 0}
+  compressableButtonVisuals: {fileID: 0}
+  minCompressPercentage: 0.25
+  highlightPlate: {fileID: 0}
+  highlightPlateAnimationTime: 0.25
 --- !u!1 &203776046
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,6 +3194,8 @@ GameObject:
   - component: {fileID: 608880644}
   - component: {fileID: 608880643}
   - component: {fileID: 608880642}
+  - component: {fileID: 608880647}
+  - component: {fileID: 608880648}
   m_Layer: 5
   m_Name: InputFieldEmail
   m_TagString: Untagged
@@ -3181,7 +3236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventsToReceive: 0
-  debounceThreshold: 0.05
+  debounceThreshold: 0.01
 --- !u!114 &608880643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,6 +3310,57 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!65 &608880647
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608880640}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &608880648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608880640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98e7663599230e419addf153615c144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingButtonVisuals: {fileID: 608880640}
+  distanceSpaceMode: 1
+  startPushDistance: 0
+  maxPushDistance: 0.2
+  pressDistance: 0.02
+  releaseDistanceDelta: 0.01
+  returnSpeed: 25
+  releaseOnTouchEnd: 1
+  enforceFrontPush: 1
+  TouchBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  TouchEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  movingButtonIconText: {fileID: 0}
+  compressableButtonVisuals: {fileID: 0}
+  minCompressPercentage: 0.25
+  highlightPlate: {fileID: 0}
+  highlightPlateAnimationTime: 0.25
 --- !u!1 &648310472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7722,7 +7828,6 @@ GameObject:
   - component: {fileID: 1968077060}
   - component: {fileID: 1968077059}
   - component: {fileID: 1968077058}
-  - component: {fileID: 1968077057}
   m_Layer: 0
   m_Name: LoginButton
   m_TagString: Untagged
@@ -7748,39 +7853,6 @@ Transform:
   m_Father: {fileID: 7283249}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1968077057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968077055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053383adef8e6764299dee4bd8546f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messages:
-  - message: This tutorial will introduce you to the basics of the UCF cARdiac App.
-  - message: In this app, you will be able to interact with a heart model by moving,
-      rotating, and resizing it using your hands within the Microsoft HoloLens 2
-      view.
-  - message: "Let\u2019s try moving an object."
-  - message: To move an object, reach out and grab it. While holding it move your
-      hand to drag the object.
-  - message: Good job!
-  - message: "Now let\u2019s try rotating an object. To rotate an object, reach out
-      and grab it. While holding it twist your hand to turn the object."
-  - message: Great!
-  - message: "Now, let\u2019s try expanding an object. Grab the object with both
-      hands and pinch the opposite ends of it. Now pinch and pull your hands away
-      from each other."
-  - message: You got it!
-  - message: "Finally, let\u2019s try shrinking an object. Grab the object with both
-      hands and pinch the opposite ends of it. Now pinch and push your hands towards
-      each other."
-  - message: Fantastic!
-  - message: "This concludes the tutorial! Launching application now\u2026"
 --- !u!114 &1968077058
 MonoBehaviour:
   m_ObjectHideFlags: 0
