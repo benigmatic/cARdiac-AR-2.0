@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SelectionMenuScene.unity
     guid: 7220777dd850f6a47bc5aeded7aa4202
+  - enabled: 1
+    path: Assets/Scenes/M1HeartScene.unity
+    guid: 137c2730e0255ad46af4b8f19de18537
+  - enabled: 1
+    path: Assets/Scenes/M2HeartScene.unity
+    guid: e59dfc4f6cc69e248a81c59991c00174
+  - enabled: 1
+    path: Assets/Scenes/FlashcardScene.unity
+    guid: 240a8683cace67d44aac2ae711095ffc
+  - enabled: 1
+    path: Assets/Scenes/CaseQuestionsScene.unity
+    guid: ca56f4b9817645341ba8e163232bf1b7
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6991f1ae7c19cf44b8da6268a9abdff3, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4f36799724e0d1c4e95fefacd9f49bbe, type: 2}
