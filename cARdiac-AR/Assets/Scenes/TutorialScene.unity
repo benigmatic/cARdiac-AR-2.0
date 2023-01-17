@@ -3315,8 +3315,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageText: {fileID: 3899631047446099945}
+  sceneName: SelectionMenuScene
   heartModel: {fileID: 980511647}
   continueButton: {fileID: 7125759498391933911}
+  delayBeforeLoading: 2
 --- !u!23 &1676338663207221408
 MeshRenderer:
   m_ObjectHideFlags: 0

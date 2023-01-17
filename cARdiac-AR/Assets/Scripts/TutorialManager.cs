@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
-public class DialogueManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour
 {
     public TMP_Text messageText;
+
+    public string sceneName;
 
     public GameObject heartModel;
 
@@ -15,6 +18,17 @@ public class DialogueManager : MonoBehaviour
     private Vector3 originalPos;
 
     private Vector3 currPos;
+
+    // Distance that will trigger movement prompt.
+    private float distThreshold = 0.1f;
+
+    // Angle that will trigger rotation prompt.
+    private float rotThreshold = 10f;
+
+    [SerializeField]
+    private float delayBeforeLoading = 2f;
+    private float timeElapsed = 0;
+    
 
     Message[] currentMessages;
     int activeMessage = 0;
@@ -50,6 +64,8 @@ public class DialogueManager : MonoBehaviour
         // Rotation prompt.
         if (activeMessage == 5)
         {
+            continueButton.SetActive(false);
+
             // Cache the heart model current rotation.
             originalPos = GameObject.Find("HealthyHeart").transform.eulerAngles;
         }
@@ -57,6 +73,8 @@ public class DialogueManager : MonoBehaviour
         // Scale up prompt.
         if (activeMessage == 7)
         {
+            continueButton.SetActive(false);
+
             // Cache the heart model current size.
             originalPos = GameObject.Find("HealthyHeart").transform.localScale;
         }
@@ -64,7 +82,12 @@ public class DialogueManager : MonoBehaviour
         // Scale down prompt
         if (activeMessage == 9)
         {
-            
+            continueButton.SetActive(false);
+        }
+
+        if (activeMessage == 11)
+        {
+            continueButton.SetActive(false);
         }
 
         
@@ -72,8 +95,7 @@ public class DialogueManager : MonoBehaviour
         if (activeMessage < currentMessages.Length) {
             DisplayMessage();
         } else {
-            Debug.Log("Conversation has ended! "+ currentMessages.Length);
-            // Debug.Log(pos.ToString("F4"));
+            Debug.Log("Tutorial has ended! "+ currentMessages.Length);
         }
     }
 
@@ -91,9 +113,7 @@ public class DialogueManager : MonoBehaviour
         {
             currPos = GameObject.Find("HealthyHeart").transform.position;
 
-            //Debug.Log(Vector3.Distance(originalPos, currPos));
-
-            if (Vector3.Distance(originalPos, currPos) > .1)
+            if (Vector3.Distance(originalPos, currPos) > distThreshold)
             {
                 continueButton.SetActive(true);
                 NextMessage(currentMessages);
@@ -105,8 +125,9 @@ public class DialogueManager : MonoBehaviour
         {
             currPos = GameObject.Find("HealthyHeart").transform.eulerAngles;
 
-            if (Vector3.Angle(originalPos, currPos) > 10)
+            if (Vector3.Angle(originalPos, currPos) > rotThreshold)
             {
+                continueButton.SetActive(true);
                 NextMessage(currentMessages);
             }
         }
@@ -118,6 +139,7 @@ public class DialogueManager : MonoBehaviour
 
             if (originalPos.x < currPos.x)
             {
+                continueButton.SetActive(true);
                 NextMessage(currentMessages);
             }
         }
@@ -129,7 +151,19 @@ public class DialogueManager : MonoBehaviour
 
             if (originalPos.x > currPos.x)
             {
+                continueButton.SetActive(true);
                 NextMessage(currentMessages);
+            }
+        }
+
+        // On the last prompt load the next scene after time delay.
+        if (activeMessage == 11)
+        {
+            timeElapsed += Time.deltaTime;
+
+            if (timeElapsed > delayBeforeLoading)
+            {
+                SceneManager.LoadScene(sceneName);
             }
         }
     }
