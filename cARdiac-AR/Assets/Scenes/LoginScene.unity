@@ -158,9 +158,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   email: {fileID: 1066582421}
   password: {fileID: 1101000217}
+  textAssetData: {fileID: 4900000, guid: 9b331cbbe877f61479c9da3e4064deaa, type: 3}
   errorText: {fileID: 709393418}
   canvas:
   - {fileID: 7283243}
+  userList:
+    user: []
+  tableSize: 0
 --- !u!114 &7283245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3065,9 +3069,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   email: {fileID: 573819565}
   password: {fileID: 1481706429}
+  textAssetData: {fileID: 0}
   errorText: {fileID: 0}
   canvas:
   - {fileID: 648310472}
+  userList:
+    user: []
+  tableSize: 0
 --- !u!114 &648310482
 MonoBehaviour:
   m_ObjectHideFlags: 0
