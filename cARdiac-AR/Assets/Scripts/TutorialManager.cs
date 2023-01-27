@@ -5,6 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+public class Dialogue
+{
+    public string message;
+
+    public Dialogue(string m)
+    {
+        message = m;
+    }
+}
+
 public class TutorialManager : MonoBehaviour
 {
     public TMP_Text messageText;
@@ -30,16 +40,15 @@ public class TutorialManager : MonoBehaviour
     private float timeElapsed = 0;
     
 
-    Message[] currentMessages;
+    public Dialogue[] currentMessages = new Dialogue[12];
     int activeMessage = 0;
 
     void DisplayMessage() {
-        Message messageToDisplay = currentMessages[activeMessage];
+        Dialogue messageToDisplay = currentMessages[activeMessage];
         messageText.text = messageToDisplay.message;
     }
 
-    public void NextMessage(Message[] messages){
-        currentMessages = messages;
+    public void NextMessage(){
         activeMessage++;
 
         // Movement prompt.
@@ -99,9 +108,27 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public void tutorialMessages(Dialogue[] currentMessages)
+    {
+        currentMessages[0] = new Dialogue("This tutorial will introduce you to the basics of the UCF cARdiac App.");
+        currentMessages[1] = new Dialogue("In this app, you will be able to interact with a heart model by moving, rotating, and resizing it using your hands within the Microsoft HoloLens 2 view.");
+        currentMessages[2] = new Dialogue("Let’s try moving an object.");
+        currentMessages[3] = new Dialogue("To move an object, reach out and grab it. While holding it move your hand to drag the object.");
+        currentMessages[4] = new Dialogue("Good job!");
+        currentMessages[5] = new Dialogue("Now let’s try rotating an object. To rotate an object, reach out and grab it. While holding it twist your hand to turn the object.");
+        currentMessages[6] = new Dialogue("Great!");
+        currentMessages[7] = new Dialogue("Now, let’s try expanding an object. Grab the object with both hands and pinch the opposite ends of it. Now pinch and pull your hands away from each other.");
+        currentMessages[8] = new Dialogue("You got it!");
+        currentMessages[9] = new Dialogue("Finally, let’s try shrinking an object. Grab the object with both hands and pinch the opposite ends of it. Now pinch and push your hands towards each other.");
+        currentMessages[10] = new Dialogue("Fantastic!");
+        currentMessages[11] = new Dialogue("This concludes the tutorial! Launching application now…");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        tutorialMessages(currentMessages);
+
         heartModel.SetActive(false);
     }
 
@@ -116,7 +143,7 @@ public class TutorialManager : MonoBehaviour
             if (Vector3.Distance(originalPos, currPos) > distThreshold)
             {
                 continueButton.SetActive(true);
-                NextMessage(currentMessages);
+                NextMessage();
             }
         }
 
@@ -128,7 +155,7 @@ public class TutorialManager : MonoBehaviour
             if (Vector3.Angle(originalPos, currPos) > rotThreshold)
             {
                 continueButton.SetActive(true);
-                NextMessage(currentMessages);
+                NextMessage();
             }
         }
 
@@ -140,7 +167,7 @@ public class TutorialManager : MonoBehaviour
             if (originalPos.x < currPos.x)
             {
                 continueButton.SetActive(true);
-                NextMessage(currentMessages);
+                NextMessage();
             }
         }
 
@@ -152,7 +179,7 @@ public class TutorialManager : MonoBehaviour
             if (originalPos.x > currPos.x)
             {
                 continueButton.SetActive(true);
-                NextMessage(currentMessages);
+                NextMessage();
             }
         }
 
