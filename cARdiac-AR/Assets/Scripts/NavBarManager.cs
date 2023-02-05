@@ -7,6 +7,12 @@ using TMPro;
 
 public class NavBarManager : MonoBehaviour
 {
+    public GameObject flashcardSection;
+
+    public GameObject heartSection;
+
+    public GameObject heartModel;
+
     public TMP_Text promptTitle;
 
     public TMP_Text promptText;
@@ -14,6 +20,8 @@ public class NavBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        flashcardSection.SetActive(false);
+        
         promptTitle.text = "Welcome to the UCF Cardiac Application!";
         promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
         "As well as learn about the determinants of cardiac output and view forms of heart rates." +
@@ -28,6 +36,10 @@ public class NavBarManager : MonoBehaviour
 
     public void contractility()
     {
+        heartSection.SetActive(true);
+        flashcardSection.SetActive(false);
+        heartModel.SetActive(true);
+
         promptTitle.text = "Contractility";
         promptText.text = "The amount of calcium entering a cardiac muscle cell affects its contractility, " +
         "i.e., the rate and amount of tension it produces. The greater the calcium influx, " + 
@@ -39,6 +51,10 @@ public class NavBarManager : MonoBehaviour
 
     public void preload()
     {
+        heartSection.SetActive(true);
+        flashcardSection.SetActive(false);
+        heartModel.SetActive(true);
+
         promptTitle.text = "Preload";
         promptText.text = "Preload is the degree of stretching of cardiac muscle cells as the ventricles fill with blood. " +
         "The more cardiac muscle cells are stretched, the greater the force they can produce, and the greater the volume " +
@@ -49,6 +65,10 @@ public class NavBarManager : MonoBehaviour
 
     public void afterload()
     {
+        heartSection.SetActive(true);
+        flashcardSection.SetActive(false);
+        heartModel.SetActive(true);
+
         promptTitle.text = "Afterload";
         promptText.text = "Afterload is the stress on the left ventricular wall during contraction. Importantly, " +
         "it is proportional to the aortic pressure the heart must eject blood against. As aortic pressure increases, " +
@@ -56,5 +76,12 @@ public class NavBarManager : MonoBehaviour
         System.Environment.NewLine + System.Environment.NewLine + "↑ aortic pressure = ↑ afterload, ↓ stroke volume" +
         System.Environment.NewLine + System.Environment.NewLine + "Some conditions that affect afterload:" +
         System.Environment.NewLine + "hypertension, aortic valve disease, aortic stenosis.";
+    }
+
+    public void flashcards()
+    {
+        heartSection.SetActive(false);
+        flashcardSection.SetActive(true);
+        heartModel.SetActive(false);
     }
 }
