@@ -6722,6 +6722,64 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &478970628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478970620}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4479a0bd44d822241a4c5f4890c481c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateLinkedTransform: 0
+  moveLerpTime: 0.1
+  rotateLerpTime: 0.1
+  scaleLerpTime: 0
+  maintainScaleOnInitialization: 1
+  smoothing: 1
+  lifetime: 0
+  orientationType: 1
+  faceTrackedObjectWhileClamped: 1
+  faceUserDefinedTargetTransform: 0
+  targetToFace: {fileID: 0}
+  pivotAxis: 7
+  minDistance: 0
+  maxDistance: 0.5
+  defaultDistance: 0.4
+  maxViewHorizontalDegrees: 30
+  maxViewVerticalDegrees: 20
+  reorientWhenOutsideParameters: 1
+  orientToControllerDeadzoneDegrees: 60
+  ignoreAngleClamp: 0
+  ignoreDistanceClamp: 0
+  ignoreReferencePitchAndRoll: 0
+  pitchOffset: 0
+  verticalMaxDistance: 0
+  angularClampMode: 0
+  tetherAngleSteps: 6
+  boundsScaler: 1
+--- !u!114 &478970629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478970620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackedTargetType: 0
+  trackedHandedness: 3
+  trackedHandJoint: 2
+  transformOverride: {fileID: 0}
+  additionalOffset: {x: -0.06, y: 0, z: 0}
+  additionalRotation: {x: 0, y: 0, z: 0}
+  updateSolvers: 1
 --- !u!1 &482713012
 GameObject:
   m_ObjectHideFlags: 0
@@ -16045,15 +16103,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.068
+      value: -0.06743584
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029
+      value: -0.05430931
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0.4677516
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20140,9 +20198,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 1827248388}
+        m_TargetAssemblyTypeName: HeartControls, Assembly-CSharp
+        m_MethodName: resetHeartPosition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20849,6 +20907,7 @@ GameObject:
   - component: {fileID: 1827248385}
   - component: {fileID: 1827248387}
   - component: {fileID: 1827248386}
+  - component: {fileID: 1827248388}
   m_Layer: 0
   m_Name: HeartControls
   m_TagString: Untagged
@@ -20907,6 +20966,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleText: {fileID: 915571402}
   descriptionText: {fileID: 0}
+--- !u!114 &1827248388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827248384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c769b848b7a3154c8e622ec227891f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartModel: {fileID: 478970620}
+  resetAnchor: {fileID: 410100471}
 --- !u!1 &1843909373
 GameObject:
   m_ObjectHideFlags: 0

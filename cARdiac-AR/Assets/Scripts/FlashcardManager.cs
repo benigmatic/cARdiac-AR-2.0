@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -18,6 +20,8 @@ public class Question
 
 public class FlashcardManager : MonoBehaviour
 {
+    private string sceneName;
+
     // Holds Flashcard object scale
     public RectTransform r;     
     public TMP_Text cardText;
@@ -42,10 +46,21 @@ public class FlashcardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        string m1SceneName = "M1HeartScene";
+        string m2SceneName = "M2HeartScene";
+
         continueButton.SetActive(false);
 
-        m1Cards(ques);
-        // m2Cards(ques);
+        if(String.Equals(sceneName, m1SceneName))
+        {
+            m1Cards(ques);
+        }
+        else if(String.Equals(sceneName, m2SceneName))
+        {
+            m2Cards(ques);
+        } 
 
         distancePerTime = r.localScale.x / flipTime;
         cardText.text = ques[cardNum].question;
