@@ -1479,6 +1479,7 @@ Transform:
   - {fileID: 1413618084}
   - {fileID: 410100472}
   - {fileID: 316008446}
+  - {fileID: 401844276}
   m_Father: {fileID: 1962404453}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5476,6 +5477,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &401844275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401844276}
+  m_Layer: 0
+  m_Name: DefaultPosAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401844276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401844275}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.06743584, y: -0.05430931, z: -0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 125618847}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406080094
 GameObject:
   m_ObjectHideFlags: 0
@@ -16119,15 +16150,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78b6ddbe329ebb41aad877033d25431, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20979,7 +21010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartModel: {fileID: 478970620}
-  resetAnchor: {fileID: 410100471}
+  resetAnchor: {fileID: 401844275}
 --- !u!1 &1843909373
 GameObject:
   m_ObjectHideFlags: 0
@@ -23721,7 +23752,7 @@ MonoBehaviour:
   dimensionIndex: 0
   startDimensionIndex: 0
   CanSelect: 1
-  CanDeselect: 1
+  CanDeselect: 0
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:

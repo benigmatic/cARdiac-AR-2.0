@@ -34,22 +34,17 @@ public class HeartControls : MonoBehaviour
 
     public void resetHeartPosition()
     {
-        anchorPos = resetAnchor.transform.position;
-        heartPos = heartModel.transform.position;
-        Debug.Log("Anchor Before Position: " + anchorPos.ToString("F4"));
-        Debug.Log("Heart Before Position: " + heartPos.ToString("F4"));
-
-
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
+        heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
         //GameObject.Find("HealthyHeart").GetComponent(Follow).enabled = true;
 
         //heartModel.transform.position = resetAnchor.transform.position;
 
-        anchorPos = resetAnchor.transform.position;
-        heartPos = heartModel.transform.position;
-        aRot = resetAnchor.transform.eulerAngles;
-        Debug.Log("After Anchor Rotation: " + aRot.ToString("F4"));
-        Debug.Log("Anchor After Position: " + anchorPos.ToString("F4"));
-        Debug.Log("Heart After Position: " + heartPos.ToString("F4"));
+    //     anchorPos = resetAnchor.transform.position;
+    //     heartPos = heartModel.transform.position;
+    //     aRot = resetAnchor.transform.eulerAngles;
+    //     Debug.Log("After Anchor Rotation: " + aRot.ToString("F4"));
+    //     Debug.Log("Anchor After Position: " + anchorPos.ToString("F4"));
+    //     Debug.Log("Heart After Position: " + heartPos.ToString("F4"));
     }
 }
