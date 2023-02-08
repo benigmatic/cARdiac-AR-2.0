@@ -1,21 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
 public class NavBarManager : MonoBehaviour
 {
+    private string sceneName;
+
     public GameObject flashcardSection;
 
     public GameObject heartSection;
 
     public GameObject heartModel;
-
-    public GameObject contractilityButton;
-
-    public GameObject preloadButton;
 
     public TMP_Text promptTitle;
 
@@ -26,10 +26,7 @@ public class NavBarManager : MonoBehaviour
     {
         flashcardSection.SetActive(false);
         
-        promptTitle.text = "Welcome to the UCF Cardiac Application!";
-        promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
-        "As well as learn about the determinants of cardiac output and view forms of heart rates." +
-        "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
+        StartPrompt();
     }
 
     // Update is called once per frame
@@ -38,9 +35,32 @@ public class NavBarManager : MonoBehaviour
         
     }
 
+    public void StartPrompt()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        string m1SceneName = "M1HeartScene";
+        string m2SceneName = "M2HeartScene";
+
+        if(String.Equals(sceneName, m1SceneName))
+        {
+            promptTitle.text = "Welcome to the UCF Cardiac M1 Section!";
+            promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
+            "As well as learn about the determinants of cardiac output and view forms of heart rates. " +
+            "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
+        }
+        else if(String.Equals(sceneName, m2SceneName))
+        {
+            promptTitle.text = "Welcome to the UCF Cardiac M2 Section!";
+            promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
+            "As well as learn about heart conditions and its affects on the heart rate with an EKG. " +
+            "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
+        } 
+
+    }
+
     public void contractility()
     {
-        //preloadButton.GetComponent<Interactable>().IsToggled = false;
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
@@ -56,7 +76,6 @@ public class NavBarManager : MonoBehaviour
 
     public void preload()
     {
-        //contractilityButton.GetComponent<Interactable>().IsToggled = false;
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
