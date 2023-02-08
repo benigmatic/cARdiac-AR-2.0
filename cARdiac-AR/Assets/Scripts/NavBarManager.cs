@@ -13,6 +13,10 @@ public class NavBarManager : MonoBehaviour
 
     public GameObject heartModel;
 
+    public GameObject contractilityButton;
+
+    public GameObject preloadButton;
+
     public TMP_Text promptTitle;
 
     public TMP_Text promptText;
@@ -36,6 +40,7 @@ public class NavBarManager : MonoBehaviour
 
     public void contractility()
     {
+        //preloadButton.GetComponent<Interactable>().IsToggled = false;
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
@@ -51,6 +56,7 @@ public class NavBarManager : MonoBehaviour
 
     public void preload()
     {
+        //contractilityButton.GetComponent<Interactable>().IsToggled = false;
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
