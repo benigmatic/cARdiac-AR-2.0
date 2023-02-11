@@ -27,7 +27,8 @@ public class FlashcardManager : MonoBehaviour
     public TMP_Text cardText;
     public TMP_Text cardCounter;
     public GameObject flipButton;
-    public GameObject continueButton;
+    public GameObject correctButton;
+    public GameObject incorrectButton;
     public Question[] ques = new Question[12];
 
     private float flipTime = 0.5f;
@@ -51,16 +52,17 @@ public class FlashcardManager : MonoBehaviour
         string m1SceneName = "M1HeartScene";
         string m2SceneName = "M2HeartScene";
 
-        continueButton.SetActive(false);
+        correctButton.SetActive(false);
+        incorrectButton.SetActive(false);
 
-        if(String.Equals(sceneName, m1SceneName))
+        if (String.Equals(sceneName, m1SceneName))
         {
             m1Cards(ques);
         }
         else if(String.Equals(sceneName, m2SceneName))
         {
             m2Cards(ques);
-        } 
+        }
 
         distancePerTime = r.localScale.x / flipTime;
         cardText.text = ques[cardNum].question;
@@ -93,7 +95,7 @@ public class FlashcardManager : MonoBehaviour
                 {
                     // Back of the card to front.
                     faceSide = 0;
-                    cardText.text = ques[cardNum].answer;
+                    cardText.text = ques[cardNum].question;
                 }
             }
             else if ((timeCount >= flipTime) && (isShrinking == 1))
@@ -105,7 +107,8 @@ public class FlashcardManager : MonoBehaviour
 
     public void NextCard()
     {
-        continueButton.SetActive(false);
+        correctButton.SetActive(false);
+        incorrectButton.SetActive(false);
         flipButton.SetActive(true);
         faceSide = 0;
         cardNum++;
@@ -118,10 +121,22 @@ public class FlashcardManager : MonoBehaviour
         cardCounter.text = (cardNum + 1).ToString() + " / 12";
     }
 
+    public void Incorrect()
+    {
+        Debug.Log("Incorrect");
+        NextCard();
+    }
+
+    public void Correct()
+    {
+        Debug.Log("Correct");
+        NextCard();
+    }
+
     public void FlipCard()
     {
-        continueButton.SetActive(true);
-        flipButton.SetActive(false);
+        correctButton.SetActive(true);
+        incorrectButton.SetActive(true);
         timeCount = 0;
         isFlipping = true;
         isShrinking = -1;
