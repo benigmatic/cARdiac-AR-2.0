@@ -122,4 +122,9 @@ public class LoginValidation : MonoBehaviour
         Debug.Log("Login failed. Please enter correct email/password");
         errorText.enabled = true;
     }
+
+    public void automaticLogin()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

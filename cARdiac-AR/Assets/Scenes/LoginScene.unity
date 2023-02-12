@@ -5549,7 +5549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter Email
+  m_text: Enter Access Code
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a63dc8e3157f84d48826237389b808df, type: 2}
   m_sharedMaterial: {fileID: 8899569329639762489, guid: a63dc8e3157f84d48826237389b808df, type: 2}
@@ -7924,7 +7924,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7283244}
         m_TargetAssemblyTypeName: LoginValidation, Assembly-CSharp
-        m_MethodName: CheckValidation
+        m_MethodName: automaticLogin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8264,7 +8264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Please login with your Knights Email
+  m_text: Please login with your Knights Access Code
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f137eba12ee10834cb19632437cfdb2e, type: 2}
   m_sharedMaterial: {fileID: 21433621844796372, guid: f137eba12ee10834cb19632437cfdb2e, type: 2}
