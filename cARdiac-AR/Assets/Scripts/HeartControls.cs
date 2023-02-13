@@ -18,24 +18,36 @@ public class HeartControls : MonoBehaviour
 
     private Vector3 hRot;
 
+    private float currentTime = 0f;
+    private float startingTime = .01f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        aRot = GameObject.Find("M1SceneContent").transform.eulerAngles;
-        Debug.Log("Start Anchor Rotation: " + aRot.ToString("F4"));
+        currentTime = startingTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // This is so the heart starts out in reset position when the scene loads.
+        // resetHeartPosition doesn't work in Start() because there's buffer time.
+        currentTime -= 1 * Time.deltaTime;
+
+        if (currentTime == 0)
+        {
+            currentTime = 0;
+
+            resetHeartPosition();
+        }
     }
 
     public void resetHeartPosition()
     {
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
+        heartModel.transform.localScale =  new Vector3(.2f, .2f, .2f);
         //GameObject.Find("HealthyHeart").GetComponent(Follow).enabled = true;
 
         //heartModel.transform.position = resetAnchor.transform.position;

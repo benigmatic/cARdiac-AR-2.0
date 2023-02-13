@@ -23,6 +23,9 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject heartModel;
 
+    // This will be a game object we will base the default heart position off of.
+    public GameObject resetAnchor;
+
     public GameObject continueButton;
 
     private Vector3 originalPos;
@@ -57,6 +60,8 @@ public class TutorialManager : MonoBehaviour
             heartModel.SetActive(true);
 
             continueButton.SetActive(false);
+
+            resetHeartPosition();
 
             // Cache the heart model current position.
             originalPos = GameObject.Find("HealthyHeart").transform.position;
@@ -122,6 +127,13 @@ public class TutorialManager : MonoBehaviour
         currentMessages[9] = new Dialogue("Finally, let’s try shrinking an object. Grab the object with both hands and pinch the opposite ends of it. Now pinch and push your hands towards each other.");
         currentMessages[10] = new Dialogue("Fantastic!");
         currentMessages[11] = new Dialogue("This concludes the tutorial! Launching application now…");
+    }
+
+    public void resetHeartPosition()
+    {
+        heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
+        heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
+        heartModel.transform.localScale =  new Vector3(.2f, .2f, .2f);
     }
 
     // Start is called before the first frame update
