@@ -19,7 +19,7 @@ public class HeartControls : MonoBehaviour
     private Vector3 hRot;
 
     private float currentTime = 0f;
-    private float startingTime = .01f;
+    private float startingTime = .05f;
 
 
     // Start is called before the first frame update

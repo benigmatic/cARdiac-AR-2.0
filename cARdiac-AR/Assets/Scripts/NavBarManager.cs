@@ -51,10 +51,7 @@ public class NavBarManager : MonoBehaviour
         }
         else if(String.Equals(sceneName, m2SceneName))
         {
-            promptTitle.text = "Welcome to the UCF Cardiac M2 Section!";
-            promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
-            "As well as learn about heart conditions and its affects on the heart rate with an EKG. " +
-            "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
+            sinus();
         } 
 
     }
@@ -108,5 +105,18 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(false);
         flashcardSection.SetActive(true);
         heartModel.SetActive(false);
+    }
+
+    public void rhythms()
+    {
+        heartSection.SetActive(true);
+        flashcardSection.SetActive(false);
+        heartModel.SetActive(true);
+    }
+
+    public void sinus()
+    {
+        promptTitle.text = "Symptoms:";
+        promptText.text = "• Healthy function";
     }
 }
