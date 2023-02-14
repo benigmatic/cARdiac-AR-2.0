@@ -13397,9 +13397,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 893790037}
-  - component: {fileID: 893790043}
-  - component: {fileID: 893790042}
-  - component: {fileID: 893790041}
   - component: {fileID: 893790040}
   - component: {fileID: 893790039}
   - component: {fileID: 893790038}
@@ -13556,76 +13553,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9249632, y: 0.63449967, z: 0.047590002}
   m_Center: {x: -0.06922671, y: -0.13063765, z: 0.059046976}
---- !u!114 &893790041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893790036}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4684083f6dff4a1d8a790bccc354fcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateLinkedTransform: 0
-  moveLerpTime: 0.5
-  rotateLerpTime: 0.5
-  scaleLerpTime: 0
-  maintainScaleOnInitialization: 1
-  smoothing: 1
-  lifetime: 0
-  referenceDirection: 1
-  minDistance: 0.4
-  maxDistance: 1
-  minViewDegrees: 0
-  maxViewDegrees: 25
-  aspectV: 1
-  ignoreAngleClamp: 0
-  ignoreDistanceClamp: 0
-  useFixedVerticalPosition: 1
-  fixedVerticalPosition: -0.2
-  orientToReferenceDirection: 0
---- !u!114 &893790042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893790036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0.3, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
---- !u!114 &893790043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893790036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1fea68463e4e84b86c395b654f950d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualizationObject: {fileID: 0}
-  interactableObject: {fileID: 0}
-  buttonBehavior: 0
-  autoFollowAtDistance: 0
-  autoFollowDistance: 2
-  autoFollowTransformTarget: {fileID: 0}
-  autoFollowTriggered:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &894917051
 GameObject:
   m_ObjectHideFlags: 0
@@ -23978,7 +23905,7 @@ MonoBehaviour:
   maintainScaleOnInitialization: 1
   smoothing: 1
   lifetime: 0
-  targetViewPercentV: 0.35
+  targetViewPercentV: 0.45
   minDistance: 0
   maxDistance: 4
   minScale: 0.01

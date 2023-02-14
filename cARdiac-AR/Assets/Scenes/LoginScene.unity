@@ -223,7 +223,7 @@ MonoBehaviour:
   maintainScaleOnInitialization: 1
   smoothing: 1
   lifetime: 0
-  targetViewPercentV: 0.3
+  targetViewPercentV: 0.4
   minDistance: 0.4
   maxDistance: 2
   minScale: 0.01
