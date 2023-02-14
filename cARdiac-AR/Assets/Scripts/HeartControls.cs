@@ -47,7 +47,7 @@ public class HeartControls : MonoBehaviour
     {
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-        heartModel.transform.localScale =  new Vector3(.2f, .2f, .2f);
+        heartModel.transform.localScale =  new Vector3(.1f, .1f, .1f);
         //GameObject.Find("HealthyHeart").GetComponent(Follow).enabled = true;
 
         //heartModel.transform.position = resetAnchor.transform.position;
