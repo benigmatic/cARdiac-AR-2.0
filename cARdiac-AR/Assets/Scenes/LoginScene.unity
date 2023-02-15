@@ -156,15 +156,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488fc81b280ad8f4da9e777f0ad46959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  email: {fileID: 1066582421}
+  access: {fileID: 1066582421}
   password: {fileID: 1101000217}
   textAssetData: {fileID: 4900000, guid: 9b331cbbe877f61479c9da3e4064deaa, type: 3}
+  savedData: {fileID: 1329720718}
   errorText: {fileID: 709393418}
   canvas:
   - {fileID: 7283243}
-  userList:
-    user: []
-  tableSize: 0
+  data:
+    SID: 
+    Name: 
+    Section: 
 --- !u!114 &7283245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3067,15 +3069,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488fc81b280ad8f4da9e777f0ad46959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  email: {fileID: 573819565}
+  access: {fileID: 573819565}
   password: {fileID: 1481706429}
   textAssetData: {fileID: 0}
+  savedData: {fileID: 0}
   errorText: {fileID: 0}
   canvas:
   - {fileID: 648310472}
-  userList:
-    user: []
-  tableSize: 0
+  data:
+    SID: 
+    Name: 
+    Section: 
 --- !u!114 &648310482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5626,6 +5630,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316010451}
   m_CullTransparentMesh: 0
+--- !u!1 &1329720717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329720719}
+  - component: {fileID: 1329720718}
+  m_Layer: 0
+  m_Name: Data
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1329720718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329720717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fc469495071214cbae88d1cb4dbc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    SID: 
+    Name: 
+    Section: 
+--- !u!4 &1329720719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329720717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.08340497, y: -0.062574044, z: 3.563262}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1404290115
 GameObject:
   m_ObjectHideFlags: 0
@@ -7924,7 +7975,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7283244}
         m_TargetAssemblyTypeName: LoginValidation, Assembly-CSharp
-        m_MethodName: automaticLogin
+        m_MethodName: CheckValidation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
