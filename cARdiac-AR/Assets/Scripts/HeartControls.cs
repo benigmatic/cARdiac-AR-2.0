@@ -19,7 +19,9 @@ public class HeartControls : MonoBehaviour
     private Vector3 hRot;
 
     private float currentTime = 0f;
-    private float startingTime = .05f;
+    private float startingTime = 0.1f;
+
+    private bool startReset = true;
 
 
     // Start is called before the first frame update
@@ -35,10 +37,11 @@ public class HeartControls : MonoBehaviour
         // resetHeartPosition doesn't work in Start() because there's buffer time.
         currentTime -= 1 * Time.deltaTime;
 
-        if (currentTime == 0)
+        if (currentTime <= 0 && startReset)
         {
             currentTime = 0;
-
+            startReset = false;
+            Debug.Log("Heart reset start!");
             resetHeartPosition();
         }
     }
