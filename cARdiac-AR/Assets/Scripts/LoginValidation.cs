@@ -5,126 +5,95 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using TMPro;
 
 public class LoginValidation : MonoBehaviour
 {
-    public TMP_InputField email;
+    public TMP_InputField access;
 
     public TMP_InputField password;
 
     public TextAsset textAssetData;
 
+    public DataManager savedData;
+
     public TMP_Text errorText;
 
     public GameObject[] canvas;
 
-    string filename = "";
+    public Login data;
 
-    [System.Serializable]
-    public class User
-    {
-        public string SID;
-        public string lastName;
-        public string firstName;
-        public string classSection;
-        public string AppSettings;
-        public string password;
-        public string email;
-        public int logins;
-    }
-
-    [System.Serializable]
-    public class UserList
-    {
-        public User[] user;
-    }
-
-    public UserList userList = new UserList();
-
-    public int tableSize;
 
     private void Start()
     {
 
         canvas[0].SetActive(true);
-        filename = Application.dataPath + "/Scripts/StudentData.csv";
-        ReadCSV();
 
+    }
+    private void Awake()
+    {
         errorText.enabled = false;
     }
 
-    void ReadCSV()
+    IEnumerator GetRequest(string uri)
     {
-        string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-
-        tableSize = data.Length / 8 - 1;
-        userList.user = new User[tableSize];
-
-        for (int i = 0; i < tableSize; i++)
+        string error1 = "Invalid password";
+        string error2 = "No Students found in the table";
+        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=" + access.text + "&var2=" + password.text);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
-            userList.user[i] = new User();
-            userList.user[i].SID = data[8 * (i + 1)];
-            userList.user[i].lastName = data[8 * (i + 1) + 1];
-            userList.user[i].firstName = data[8 * (i + 1) + 2];
-            userList.user[i].classSection = data[8 * (i + 1) + 3];
-            userList.user[i].AppSettings = data[8 * (i + 1) + 4];
-            userList.user[i].password = data[8 * (i + 1) + 5];
-            userList.user[i].email = data[8 * (i + 1) + 6];
-            userList.user[i].logins = int.Parse(data[8 * (i + 1) + 7]);
-        }
-    }
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
 
-    public void WriteCSV()
-    {
-        if(userList.user.Length > 0)
-        {
-            TextWriter tw = new StreamWriter(filename, false);
-            tw.WriteLine("SID,LastName,FirstName,ClassSection,AppSettings,Password,Email,Logins");
-            tw.Close();
-
-            tw = new StreamWriter(filename, true);
-
-            for (int i = 0; i < userList.user.Length; i++)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == error1 || webRequest.downloadHandler.text == error2)
             {
-                tw.WriteLine(userList.user[i].SID + "," + userList.user[i].lastName + "," + userList.user[i].firstName + "," + userList.user[i].classSection + "," +
-                    userList.user[i].AppSettings + "," + userList.user[i].password + "," + userList.user[i].email + "," + userList.user[i].logins);
+                errorText.enabled = true;
+                Debug.Log(webRequest.downloadHandler.text);
+                Debug.Log(webRequest.result);
+                Debug.Log(webRequest.error);
+                Debug.Log("Bad Website");
             }
+            else
+            {
+                errorText.enabled = false;
+                Debug.Log(webRequest.downloadHandler.text);
+                data = Login.CreateFromJSON(webRequest.downloadHandler.text);
 
-            tw.Close();
+                savedData.data.SID = data.SID;
+                savedData.data.Name = data.Name;
+                savedData.data.Section = data.Section;
+                Debug.Log("Good website");
+                Debug.Log("Login Successful :)");
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
     }
 
     public void CheckValidation()
     {
-        string eInput = email.text;
+        string aInput = access.text;
         string pInput = password.text;
 
-        if (eInput == "" || pInput == "")
+        // Checks if website is valid.
+        StartCoroutine(GetRequest("https://hemo-cardiac.azurewebsites.net/login.php?var1=" + aInput + "&var2=" + pInput));
+
+
+        if (aInput == "" || pInput == "")
         {
-            Debug.Log("Please enter a email/password");
+            Debug.Log("Please enter an email/password");
             errorText.enabled = true;
         }
-
-        for (int i = 0; i < tableSize; i++)
-        {
-            if (eInput == userList.user[i].email && pInput == userList.user[i].password)
-            {
-                Debug.Log("Login Successful :)");
-                userList.user[i].logins = userList.user[i].logins + 1;
-                WriteCSV();
-
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                return;
-            }
-        }
-
-        Debug.Log("Login failed. Please enter correct email/password");
-        errorText.enabled = true;
     }
 
+
+
+
+    /*
     public void automaticLogin()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    */
 }
