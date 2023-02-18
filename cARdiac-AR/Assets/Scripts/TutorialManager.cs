@@ -33,10 +33,13 @@ public class TutorialManager : MonoBehaviour
     private Vector3 currPos;
 
     // Distance that will trigger movement prompt.
-    private float distThreshold = 0.1f;
+    private float distThreshold = 0.2f;
+
+    // Size that will trigger scale prompt.
+    private float scaleThreshold = 0.15f;
 
     // Angle that will trigger rotation prompt.
-    private float rotThreshold = 10f;
+    private float rotThreshold = 30f;
 
     [SerializeField]
     private float delayBeforeLoading = 2f;
@@ -133,7 +136,7 @@ public class TutorialManager : MonoBehaviour
     {
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-        heartModel.transform.localScale =  new Vector3(.2f, .2f, .2f);
+        heartModel.transform.localScale =  new Vector3(.1f, .1f, .1f);
     }
 
     // Start is called before the first frame update
@@ -176,7 +179,7 @@ public class TutorialManager : MonoBehaviour
         {
             currPos = GameObject.Find("HealthyHeart").transform.localScale;
 
-            if (originalPos.x < currPos.x)
+            if ((originalPos.x + scaleThreshold) < currPos.x)
             {
                 continueButton.SetActive(true);
                 NextMessage();
@@ -188,7 +191,7 @@ public class TutorialManager : MonoBehaviour
         {
             currPos = GameObject.Find("HealthyHeart").transform.localScale;
 
-            if (originalPos.x > currPos.x)
+            if ((originalPos.x - scaleThreshold) > currPos.x)
             {
                 continueButton.SetActive(true);
                 NextMessage();

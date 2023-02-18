@@ -51,7 +51,7 @@ public class NavBarManager : MonoBehaviour
         }
         else if(String.Equals(sceneName, m2SceneName))
         {
-            sinus();
+            FindObjectOfType<M2HeartRhythms>().sinus();
         } 
 
     }
@@ -114,9 +114,4 @@ public class NavBarManager : MonoBehaviour
         heartModel.SetActive(true);
     }
 
-    public void sinus()
-    {
-        promptTitle.text = "Symptoms:";
-        promptText.text = "• Healthy function";
-    }
 }

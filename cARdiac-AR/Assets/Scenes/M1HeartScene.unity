@@ -1382,7 +1382,7 @@ MonoBehaviour:
   pivotAxis: 7
   minDistance: 0
   maxDistance: 4
-  defaultDistance: 1
+  defaultDistance: 0.3
   maxViewHorizontalDegrees: 30
   maxViewVerticalDegrees: 20
   reorientWhenOutsideParameters: 1
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   trackedHandedness: 3
   trackedHandJoint: 2
   transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: -0.1, z: 0}
+  additionalOffset: {x: 0, y: 0, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
 --- !u!114 &125618850
@@ -1433,7 +1433,7 @@ MonoBehaviour:
   maintainScaleOnInitialization: 1
   smoothing: 1
   lifetime: 0
-  targetViewPercentV: 0.45
+  targetViewPercentV: 0.4
   minDistance: 0
   maxDistance: 4
   minScale: 0.01
@@ -1638,7 +1638,6 @@ GameObject:
   m_Component:
   - component: {fileID: 143874149}
   - component: {fileID: 143874151}
-  - component: {fileID: 143874150}
   - component: {fileID: 143874152}
   m_Layer: 0
   m_Name: HeartRhythms
@@ -1666,25 +1665,6 @@ Transform:
   m_Father: {fileID: 410100472}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &143874150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143874148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
 --- !u!114 &143874151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10401,7 +10381,7 @@ Transform:
   m_GameObject: {fileID: 784592622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.055, y: 0.05, z: 0.4}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 2099255046}
   - {fileID: 1333255708}
@@ -22450,7 +22430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1827248385}
   - component: {fileID: 1827248387}
-  - component: {fileID: 1827248386}
   - component: {fileID: 1827248388}
   m_Layer: 0
   m_Name: HeartControls
@@ -22477,25 +22456,6 @@ Transform:
   m_Father: {fileID: 410100472}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1827248386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827248384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
 --- !u!114 &1827248387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26691,7 +26651,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1014228782542090274}
   - component: {fileID: 1832774449597712792}
-  - component: {fileID: 1014228782542090276}
   m_Layer: 0
   m_Name: HeartPrompt
   m_TagString: Untagged
@@ -26716,25 +26675,6 @@ Transform:
   m_Father: {fileID: 410100472}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1014228782542090276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014228782542090273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
 --- !u!23 &1137369473842767777
 MeshRenderer:
   m_ObjectHideFlags: 0
