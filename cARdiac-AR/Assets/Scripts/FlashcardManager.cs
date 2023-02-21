@@ -5,37 +5,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-
+using UnityEngine.Networking;
 
 public class Question
 {
-    public string question, answer;
+    public string Prompt, Answer;
 
     public Question(string q, string a)
     {
-        question = q;
-        answer = a;
+        Prompt = q;
+        Answer = a;
+    }
+
+    public static Question CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<Question>(jsonString);
     }
 }
 
 public class FlashcardManager : MonoBehaviour
 {
-    private string sceneName;
-
-    // Holds Flashcard object scale
-    public RectTransform r;     
+    public RectTransform r;     // Holds Flashcard object scale
     public TMP_Text cardText;
     public TMP_Text cardCounter;
     public GameObject flipButton;
     public GameObject correctButton;
     public GameObject incorrectButton;
-    public Question[] ques = new Question[12];
+    public Question[] ques;
 
     private float flipTime = 0.5f;
-    // 0 is the front of the flashcard, 1 is the back of it.
-    private int faceSide = 0;
-    // -1 means get smaller, 1 means get bigger.  
-    private int isShrinking = -1;   
+    private int faceSide = 0;   // 0 is the front of the flashcard, 1 is the back of it
+    private int isShrinking = -1;   // -1 means get smaller, 1 means get bigger
     private bool isFlipping = false;
 
     // Starting flashcard;
@@ -43,29 +43,15 @@ public class FlashcardManager : MonoBehaviour
     private float distancePerTime;
     private float timeCount = 0;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        sceneName = currentScene.name;
-        string m1SceneName = "M1HeartScene";
-        string m2SceneName = "M2HeartScene";
-
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
-
-        if (String.Equals(sceneName, m1SceneName))
-        {
-            m1Cards(ques);
-        }
-        else if(String.Equals(sceneName, m2SceneName))
-        {
-            m2Cards(ques);
-        }
-
         distancePerTime = r.localScale.x / flipTime;
-        cardText.text = ques[cardNum].question;
+
+        // Gets flashcard questions and answers from database
+        StartCoroutine(GetRequest(ques));
     }
 
     // Update is called once per frame
@@ -89,13 +75,13 @@ public class FlashcardManager : MonoBehaviour
                 {
                     // Front of the card to the back.
                     faceSide = 1;
-                    cardText.text = ques[cardNum].answer;
+                    cardText.text = ques[cardNum].Answer;
                 }
                 else
                 {
                     // Back of the card to front.
                     faceSide = 0;
-                    cardText.text = ques[cardNum].question;
+                    cardText.text = ques[cardNum].Prompt;
                 }
             }
             else if ((timeCount >= flipTime) && (isShrinking == 1))
@@ -109,7 +95,7 @@ public class FlashcardManager : MonoBehaviour
     {
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
-        flipButton.SetActive(true);
+
         faceSide = 0;
         cardNum++;
         if (cardNum >= ques.Length)
@@ -117,20 +103,8 @@ public class FlashcardManager : MonoBehaviour
             cardNum = 0;
         }
 
-        cardText.text = ques[cardNum].question;
-        cardCounter.text = (cardNum + 1).ToString() + " / 12";
-    }
-
-    public void Incorrect()
-    {
-        Debug.Log("Incorrect");
-        NextCard();
-    }
-
-    public void Correct()
-    {
-        Debug.Log("Correct");
-        NextCard();
+        cardText.text = ques[cardNum].Prompt;
+        cardCounter.text = (cardNum + 1).ToString() + " / " + ques.Length;
     }
 
     public void FlipCard()
@@ -141,6 +115,7 @@ public class FlashcardManager : MonoBehaviour
         isFlipping = true;
         isShrinking = -1;
     }
+
     public void m1Cards(Question[] cards)
     {
         cards[0] = new Question("The force that the heart must contract against to pump blood into the systemic circulation:", "Afterload");
@@ -171,5 +146,60 @@ public class FlashcardManager : MonoBehaviour
         cards[9] = new Question("Vagal maneuvers are a potential intervention for tachyarrhythmias or bradyarrhythmias?", "Tachyarrhythmias, particularly supraventricular tachycardia (SVT)");
         cards[10] = new Question("The QRS complex on an ECG represents:", "Ventricular depolarization");
         cards[11] = new Question("The T wave on an ECG represents:", "Ventricular repolarization");
+    }
+
+    IEnumerator GetRequest(Question[] cards)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        int val = (string.Compare(sceneName, "M1HeartScene") == 0) ? 1 : 2;
+        string uri = "https://hemo-cardiac.azurewebsites.net//flashcards.php?var1=" + val;
+
+        Debug.Log("Checking request for " + uri);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            // If webRequest fails or bad uri gets cardoded flascard data, else gets flashcard data from database
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == "No Flashcards found")
+            {
+                Debug.Log("Couldn't connect to website");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+
+                ques = new Question[12];
+                if (string.Compare(sceneName, "M1HeartScene") == 0)
+                    m1Cards(ques);
+                else
+                    m2Cards(ques);
+            }
+            else
+            {
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+
+                // Skips to appropiate JSON data, excludes {"Flashcards":[
+                string flashCardPrompts = webRequest.downloadHandler.text.Substring(16);
+                string[] promptsArray = flashCardPrompts.Split('{');
+                ques = new Question[promptsArray.Length];
+
+                // Formats json to be {"Prompt"...}, adds deleted '{' and removes trailing ','
+                for (int i = 0; i < promptsArray.Length; i++)
+                {
+                    promptsArray[i] = promptsArray[i].Insert(0, "{");
+                    promptsArray[i] = promptsArray[i].Remove(promptsArray[i].Length - 1);
+
+                    // Removes ']' from the end of the last Prompt Answer pair
+                    if (i == promptsArray.Length - 1)
+                        promptsArray[i] = promptsArray[i].Remove(promptsArray[i].Length - 1);
+
+                    ques[i] = Question.CreateFromJSON(promptsArray[i]);
+                }
+            }
+
+            cardText.text = ques[cardNum].Prompt;
+            cardCounter.text = 1 + " / " + ques.Length;
+        }
     }
 }
