@@ -100,13 +100,9 @@ public class LoginValidation : MonoBehaviour
         }
     }
 
-
-
-
-    /*
-    public void automaticLogin()
+    public void guestAccess()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    */
+    
 }
