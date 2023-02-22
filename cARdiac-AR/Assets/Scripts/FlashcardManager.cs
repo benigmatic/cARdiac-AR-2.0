@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 
 public class Question
 {
+    public int FID;
     public string Prompt, Answer;
 
     public Question(string q, string a)
@@ -197,6 +198,9 @@ public class FlashcardManager : MonoBehaviour
                     ques[i] = Question.CreateFromJSON(promptsArray[i]);
                 }
             }
+
+            Debug.Log(ques[0].Prompt);
+            Debug.Log(ques[1].Prompt);
 
             cardText.text = ques[cardNum].Prompt;
             cardCounter.text = 1 + " / " + ques.Length;
