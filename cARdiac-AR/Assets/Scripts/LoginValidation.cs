@@ -74,8 +74,8 @@ public class LoginValidation : MonoBehaviour
                 data = Login.CreateFromJSON(webRequest.downloadHandler.text);
 
                 savedData.data.SID = data.SID;
-                savedData.data.Name = data.Name;
                 savedData.data.Section = data.Section;
+                savedData.data.LoggedIn = data.LoggedIn;
                 Debug.Log("Good website");
                 Debug.Log("Login Successful :)");
 

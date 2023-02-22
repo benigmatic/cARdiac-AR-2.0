@@ -9,8 +9,8 @@ public class Login
 {
 
     public string SID;
-    public string Name;
     public string Section;
+    public string LoggedIn;
 
 
     public static Login CreateFromJSON(string jsonString)
