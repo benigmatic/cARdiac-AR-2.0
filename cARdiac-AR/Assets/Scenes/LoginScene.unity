@@ -193,7 +193,7 @@ MonoBehaviour:
   pivotAxis: 7
   minDistance: 0
   maxDistance: 4
-  defaultDistance: 0.3
+  defaultDistance: 0.55
   maxViewHorizontalDegrees: 30
   maxViewVerticalDegrees: 30
   reorientWhenOutsideParameters: 1
@@ -225,7 +225,7 @@ MonoBehaviour:
   maintainScaleOnInitialization: 1
   smoothing: 1
   lifetime: 0
-  targetViewPercentV: 0.3
+  targetViewPercentV: 0.45
   minDistance: 0.4
   maxDistance: 2
   minScale: 0.01
@@ -4645,7 +4645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guest Access
+  m_text: Guest Login
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}

@@ -33,13 +33,13 @@ public class TutorialManager : MonoBehaviour
     private Vector3 currPos;
 
     // Distance that will trigger movement prompt.
-    private float distThreshold = 0.2f;
+    private float distThreshold = 0.115f;
 
     // Size that will trigger scale prompt.
-    private float scaleThreshold = 0.15f;
+    private float scaleThreshold = 0.02f;
 
     // Angle that will trigger rotation prompt.
-    private float rotThreshold = 30f;
+    private float rotThreshold = 35f;
 
     [SerializeField]
     private float delayBeforeLoading = 2f;
