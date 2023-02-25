@@ -6356,9 +6356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7b564c722925f49abd2a64735ccea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowRate: {fileID: 565131137}
-  normalRate: {fileID: 694146503}
-  fastRate: {fileID: 2146713341}
   promptTitle: {fileID: 400014515}
   promptText: {fileID: 1429454843}
 --- !u!114 &433713358
@@ -14381,9 +14378,9 @@ MonoBehaviour:
   isGlobal: 0
   Dimensions: 2
   dimensionIndex: 0
-  startDimensionIndex: 1
-  CanSelect: 0
-  CanDeselect: 0
+  startDimensionIndex: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:
@@ -25775,8 +25772,8 @@ MonoBehaviour:
   Dimensions: 2
   dimensionIndex: 0
   startDimensionIndex: 0
-  CanSelect: 0
-  CanDeselect: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:
@@ -29927,6 +29924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801795021}
   - component: {fileID: 1801795024}
+  - component: {fileID: 1801795022}
   m_Layer: 0
   m_Name: HeartRate
   m_TagString: Untagged
@@ -29953,6 +29951,26 @@ Transform:
   m_Father: {fileID: 131180187}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801795022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801795020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adeb8b21c6d120408d0aea984f6b26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleList:
+  - {fileID: 969414975}
+  - {fileID: 1543085003}
+  - {fileID: 2127990548}
+  currentIndex: 0
+  OnSelectionEvents:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1801795024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34323,8 +34341,8 @@ MonoBehaviour:
   Dimensions: 2
   dimensionIndex: 0
   startDimensionIndex: 0
-  CanSelect: 0
-  CanDeselect: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:

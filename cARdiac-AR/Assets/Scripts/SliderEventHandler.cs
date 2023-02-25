@@ -17,5 +17,11 @@ public class SliderEventHandler : MonoBehaviour
     public void OnInteractionEnded(SliderEventData eventData)
     {
         Debug.Log("OnInteractionEnded Event:" + confidenceLevels[eventData.NewValue]);
+
+        Debug.Log("Slider Value is: " + SliderValue);
     }
+
+    public float SliderValue { get; set; }
+
+    public Vector3 SliderStartPosition { get; set; }
 }

@@ -44,9 +44,15 @@ public class FlashcardManager : MonoBehaviour
     private float distancePerTime;
     private float timeCount = 0;
 
+    private float startingTick;
+
     // Start is called before the first frame update
     void Start()
     {
+        // startingTick = SliderEventHandler.SliderValue;
+
+        // Debug.Log("Starting tick = " + startingTick);
+
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
         distancePerTime = r.localScale.x / flipTime;
