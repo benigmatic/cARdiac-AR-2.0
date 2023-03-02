@@ -12,6 +12,8 @@ public class HeartControls : MonoBehaviour
 
     public GameObject heartAnatomy;
 
+    public GameObject tutorialWarning;
+
     private Vector3 heartPos;
 
     private Vector3 anchorPos;
@@ -70,5 +72,11 @@ public class HeartControls : MonoBehaviour
     public void anatomy()
     {
         heartAnatomy.SetActive(!heartAnatomy.activeSelf);
+    }
+
+    // Toggles the tutorial warning that can access the tutorial scene.
+    public void tutorial()
+    {
+        tutorialWarning.SetActive(!tutorialWarning.activeSelf);
     }
 }
