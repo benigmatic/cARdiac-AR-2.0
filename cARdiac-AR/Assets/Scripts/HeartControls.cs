@@ -10,6 +10,8 @@ public class HeartControls : MonoBehaviour
     // This will be a game object we will base the default heart position off of.
     public GameObject resetAnchor;
 
+    public GameObject heartAnatomy;
+
     private Vector3 heartPos;
 
     private Vector3 anchorPos;
@@ -28,6 +30,7 @@ public class HeartControls : MonoBehaviour
     void Start()
     {
         currentTime = startingTime;
+        heartAnatomy.SetActive(false);
     }
 
     // Update is called once per frame
@@ -48,9 +51,10 @@ public class HeartControls : MonoBehaviour
 
     public void resetHeartPosition()
     {
+        Debug.Log("Heart reset is called!");
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-        heartModel.transform.localScale =  new Vector3(.05f, .05f, .05f);
+        heartModel.transform.localScale =  new Vector3(.025f, .025f, .025f);
         //GameObject.Find("HealthyHeart").GetComponent(Follow).enabled = true;
 
         //heartModel.transform.position = resetAnchor.transform.position;
@@ -61,5 +65,10 @@ public class HeartControls : MonoBehaviour
     //     Debug.Log("After Anchor Rotation: " + aRot.ToString("F4"));
     //     Debug.Log("Anchor After Position: " + anchorPos.ToString("F4"));
     //     Debug.Log("Heart After Position: " + heartPos.ToString("F4"));
+    }
+
+    public void anatomy()
+    {
+        heartAnatomy.SetActive(!heartAnatomy.activeSelf);
     }
 }
