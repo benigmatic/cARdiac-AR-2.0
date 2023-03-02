@@ -114,4 +114,48 @@ public class NavBarManager : MonoBehaviour
         heartModel.SetActive(true);
     }
 
+    public void aorta()
+    {
+        promptTitle.text = "Aorta";
+        promptText.text = "The main artery of the body, supplying oxygenated blood to the circulatory system.";
+    }
+
+    public void sinoatrialNode()
+    {
+        promptTitle.text = "Sinoatrial Node";
+        promptText.text = "A small body of specialized muscle fibers, located in the right atrium of the heart, " +
+        "whose activity is responsible for initiating the heartbeat.";
+    }
+
+    public void rightAtrium()
+    {
+        promptTitle.text = "Right Atrium";
+        promptText.text = "Receives blood low in oxygen from the body and then empties the blood into the right ventricle.";
+    }
+
+    public void leftAtrium()
+    {
+        promptTitle.text = "Left Atrium";
+        promptText.text = "Receives blood full of oxygen from the lungs and then empties the blood into the left ventricle.";        
+    }
+
+    public void antrioventricularNode()
+    {
+        promptTitle.text = "Atrioventricular Node";
+        promptText.text = "A small structure in the heart, located in the Koch triangle, " + 
+        "near the coronary sinus on the interatrial septum.";        
+    }
+
+    public void rightVentricle()
+    {
+        promptTitle.text = "Right Ventricle";
+        promptText.text = "Pumps blood low in oxygen to the lungs.";        
+    }
+
+    public void leftVentricle()
+    {
+        promptTitle.text = "Left Ventricle";
+        promptText.text = "Pumps blood full of oxygen out to the body.";  
+    }
+
 }
