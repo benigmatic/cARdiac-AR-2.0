@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 public class Question
 {
-    public int FID;
+    public int FID, grade, confidence;
     public string Prompt, Answer;
 
     public Question(string q, string a)
@@ -33,6 +33,7 @@ public class FlashcardManager : MonoBehaviour
     public GameObject correctButton;
     public GameObject incorrectButton;
     public Question[] ques;
+    public DataManager savedData;
 
     private float flipTime = 0.5f;
     private int faceSide = 0;   // 0 is the front of the flashcard, 1 is the back of it
@@ -98,10 +99,14 @@ public class FlashcardManager : MonoBehaviour
         }
     }
 
-    public void NextCard()
+    public void NextCard(int grade)
     {
+        ques[cardNum].grade = grade;
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
+
+        // Uploads data to database for each card
+        StartCoroutine(Upload());
 
         faceSide = 0;
         cardNum++;
@@ -110,8 +115,14 @@ public class FlashcardManager : MonoBehaviour
             cardNum = 0;
         }
 
+        ques[cardNum].confidence = 1; // Sets default confidence value
         cardText.text = ques[cardNum].Prompt;
         cardCounter.text = (cardNum + 1).ToString() + " / " + ques.Length;
+    }
+
+    public void getConfidence(int confidence)
+    {
+        ques[cardNum].confidence = confidence;
     }
 
     public void FlipCard()
@@ -171,7 +182,7 @@ public class FlashcardManager : MonoBehaviour
             // If webRequest fails or bad uri gets cardoded flascard data, else gets flashcard data from database
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == "No Flashcards found")
             {
-                Debug.Log("Couldn't connect to website");
+                Debug.Log("Couldn't connect to website when retrieving data");
                 Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
                 Debug.Log("WebRequest result: " + webRequest.result);
                 Debug.Log("WebRequest error: " + webRequest.error);
@@ -205,11 +216,46 @@ public class FlashcardManager : MonoBehaviour
                 }
             }
 
-            Debug.Log(ques[0].Prompt);
-            Debug.Log(ques[1].Prompt);
-
+            ques[cardNum].confidence = 1; // Sets default confidence value
             cardText.text = ques[cardNum].Prompt;
             cardCounter.text = 1 + " / " + ques.Length;
+        }
+    }
+
+    IEnumerator Upload()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("FID", ques[cardNum].FID);
+        form.AddField("SID", savedData.data.SID);
+        form.AddField("Grade", ques[cardNum].grade);
+        form.AddField("TimeSpent", "00:00:00");
+        form.AddField("Confidence", ques[cardNum].confidence);
+        form.AddField("Login", savedData.data.LoggedIn);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addFlashcardAttempt.php", form))
+        {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("Couldn't connect to website when uploading data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else if (webRequest.downloadHandler.text != "New record created successfully")
+            {
+                Debug.Log("Couldn't upload data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+            }
         }
     }
 }
