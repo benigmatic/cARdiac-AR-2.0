@@ -49,10 +49,11 @@ public class NavBarManager : MonoBehaviour
             "As well as learn about the determinants of cardiac output and view forms of heart rates. " +
             "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
         }
-        else if(String.Equals(sceneName, m2SceneName))
-        {
-            FindObjectOfType<M2HeartRhythms>().sinus();
-        } 
+        // In case there is ever a start prompt for M2.
+        // else if(String.Equals(sceneName, m2SceneName))
+        // {
+            
+        // } 
 
     }
 
