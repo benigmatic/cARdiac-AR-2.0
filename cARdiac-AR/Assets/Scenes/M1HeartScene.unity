@@ -3000,6 +3000,7 @@ GameObject:
   - component: {fileID: 143874149}
   - component: {fileID: 143874151}
   - component: {fileID: 143874152}
+  - component: {fileID: 143874150}
   m_Layer: 0
   m_Name: HeartRhythms
   m_TagString: Untagged
@@ -3026,6 +3027,20 @@ Transform:
   m_Father: {fileID: 410100472}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &143874150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143874148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84e6ac48f18dc141bae31ede85dc728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartAnim: {fileID: 2102860550}
+  ekg: {fileID: 1079945456}
 --- !u!114 &143874151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5965,9 +5980,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 143874150}
+        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+        m_MethodName: normal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6701,6 +6716,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 795da368e87bfc047938680e266553ba, type: 2}
+    - target: {fileID: 9500000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -7133,9 +7152,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 143874150}
+        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+        m_MethodName: bradycardia
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16440,6 +16459,7 @@ MonoBehaviour:
   flipButton: {fileID: 1545307917}
   correctButton: {fileID: 516310871}
   incorrectButton: {fileID: 1148454037}
+  savedData: {fileID: 0}
 --- !u!114 &736948398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17295,6 +17315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d60f1cb9aa5e349a6aa6a791a51f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderValue: 0
 --- !u!114 &751831100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44994,9 +45015,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 143874150}
+        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+        m_MethodName: tradycardia
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -46794,6 +46815,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8791681, y: 1.2018652, z: 0.73485917}
   m_Center: {x: 0.0041439813, y: 0.6092226, z: -0.056378786}
+--- !u!95 &2102860550 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
+  m_PrefabInstance: {fileID: 296709809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2105938102
 GameObject:
   m_ObjectHideFlags: 0
