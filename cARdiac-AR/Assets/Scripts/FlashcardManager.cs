@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class Question
 {
@@ -34,6 +35,7 @@ public class FlashcardManager : MonoBehaviour
     public GameObject incorrectButton;
     public Question[] ques;
     public DataManager savedData;
+    
 
     private float flipTime = 0.5f;
     private int faceSide = 0;   // 0 is the front of the flashcard, 1 is the back of it
@@ -45,18 +47,17 @@ public class FlashcardManager : MonoBehaviour
     private float distancePerTime;
     private float timeCount = 0;
 
-    private float startingTick;
 
     // Start is called before the first frame update
     void Start()
     {
-        // startingTick = SliderEventHandler.SliderValue;
-
-        // Debug.Log("Starting tick = " + startingTick);
 
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
         distancePerTime = r.localScale.x / flipTime;
+
+        
+        
 
         // Gets flashcard questions and answers from database
         StartCoroutine(GetRequest(ques));
@@ -104,6 +105,9 @@ public class FlashcardManager : MonoBehaviour
         ques[cardNum].grade = grade;
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
+        
+        // Resets Slider position.
+        FindObjectOfType<SliderController>().ResetSliderValue();
 
         // Uploads data to database for each card
         StartCoroutine(Upload());
@@ -118,6 +122,8 @@ public class FlashcardManager : MonoBehaviour
         ques[cardNum].confidence = 1; // Sets default confidence value
         cardText.text = ques[cardNum].Prompt;
         cardCounter.text = (cardNum + 1).ToString() + " / " + ques.Length;
+
+
     }
 
     public void getConfidence(int confidence)
