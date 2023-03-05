@@ -3000,7 +3000,6 @@ GameObject:
   - component: {fileID: 143874149}
   - component: {fileID: 143874151}
   - component: {fileID: 143874152}
-  - component: {fileID: 143874150}
   m_Layer: 0
   m_Name: HeartRhythms
   m_TagString: Untagged
@@ -3027,20 +3026,6 @@ Transform:
   m_Father: {fileID: 410100472}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &143874150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143874148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84e6ac48f18dc141bae31ede85dc728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartAnim: {fileID: 2102860550}
-  ekg: {fileID: 1079945456}
 --- !u!114 &143874151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5980,8 +5965,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 143874150}
-        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+      - m_Target: {fileID: 1827248388}
+        m_TargetAssemblyTypeName: M1HeartControls, Assembly-CSharp
         m_MethodName: normal
         m_Mode: 1
         m_Arguments:
@@ -7152,8 +7137,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 143874150}
-        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+      - m_Target: {fileID: 1827248388}
+        m_TargetAssemblyTypeName: M1HeartControls, Assembly-CSharp
         m_MethodName: bradycardia
         m_Mode: 1
         m_Arguments:
@@ -13667,7 +13652,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827248388}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HeartControls, Assembly-CSharp
         m_MethodName: tutorial
         m_Mode: 1
@@ -24803,7 +24788,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1827248388}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HeartControls, Assembly-CSharp
         m_MethodName: tutorial
         m_Mode: 1
@@ -28818,7 +28803,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1827248388}
-        m_TargetAssemblyTypeName: HeartControls, Assembly-CSharp
+        m_TargetAssemblyTypeName: M1HeartControls, Assembly-CSharp
         m_MethodName: anatomy
         m_Mode: 1
         m_Arguments:
@@ -39059,7 +39044,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1827248388}
-        m_TargetAssemblyTypeName: HeartControls, Assembly-CSharp
+        m_TargetAssemblyTypeName: M1HeartControls, Assembly-CSharp
         m_MethodName: resetHeartPosition
         m_Mode: 1
         m_Arguments:
@@ -40707,8 +40692,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1827248385}
   - component: {fileID: 1827248387}
-  - component: {fileID: 1827248388}
   - component: {fileID: 1827248386}
+  - component: {fileID: 1827248388}
   m_Layer: 0
   m_Name: HeartControls
   m_TagString: Untagged
@@ -40777,6 +40762,8 @@ MonoBehaviour:
   resetAnchor: {fileID: 401844275}
   heartAnatomy: {fileID: 1197882459}
   tutorialWarning: {fileID: 833194650}
+  heartAnim: {fileID: 2102860550}
+  ekg: {fileID: 1079945456}
 --- !u!1 &1840686080
 GameObject:
   m_ObjectHideFlags: 0
@@ -45015,8 +45002,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 143874150}
-        m_TargetAssemblyTypeName: M1HeartRhythms, Assembly-CSharp
+      - m_Target: {fileID: 1827248388}
+        m_TargetAssemblyTypeName: M1HeartControls, Assembly-CSharp
         m_MethodName: tradycardia
         m_Mode: 1
         m_Arguments:

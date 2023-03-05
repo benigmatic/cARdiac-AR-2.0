@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using TMPro;
 
-public class HeartControls : MonoBehaviour
+public class M1HeartControls : MonoBehaviour
 {
     public GameObject heartModel;
     // This will be a game object we will base the default heart position off of.
@@ -22,8 +23,15 @@ public class HeartControls : MonoBehaviour
 
     private Vector3 hRot;
 
+    public Animator heartAnim;
+
+    public VideoPlayer ekg;
+
     private float currentTime = 0f;
     private float startingTime = 0.1f;
+
+    // 0 - slow, 1 - normal, 2 - fast
+    private int speedState = 1;
 
     private bool startReset = true;
 
@@ -53,20 +61,25 @@ public class HeartControls : MonoBehaviour
 
     public void resetHeartPosition()
     {
-        Debug.Log("Heart reset is called!");
+        Debug.Log("M1 Heart reset is called!");
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
         heartModel.transform.localScale =  new Vector3(.025f, .025f, .025f);
-        //GameObject.Find("HealthyHeart").GetComponent(Follow).enabled = true;
 
-        //heartModel.transform.position = resetAnchor.transform.position;
+        Debug.Log("Speed state = " + speedState);
 
-    //     anchorPos = resetAnchor.transform.position;
-    //     heartPos = heartModel.transform.position;
-    //     aRot = resetAnchor.transform.eulerAngles;
-    //     Debug.Log("After Anchor Rotation: " + aRot.ToString("F4"));
-    //     Debug.Log("Anchor After Position: " + anchorPos.ToString("F4"));
-    //     Debug.Log("Heart After Position: " + heartPos.ToString("F4"));
+        if (speedState == 0)
+        {
+            bradycardia();
+        }
+        else if (speedState == 1)
+        {
+            normal();
+        }
+        else if (speedState == 2)
+        {
+            tradycardia();
+        }
     }
 
     public void anatomy()
@@ -78,5 +91,26 @@ public class HeartControls : MonoBehaviour
     public void tutorial()
     {
         tutorialWarning.SetActive(!tutorialWarning.activeSelf);
+    }
+
+    public void bradycardia()
+    {
+        speedState = 0;
+        heartAnim.SetFloat("Speed", 0.5f);
+        ekg.playbackSpeed = 0.5f;
+    }
+
+    public void normal()
+    {
+        speedState = 1;
+        heartAnim.SetFloat("Speed", 1f);
+        ekg.playbackSpeed = 1f;
+    }
+
+    public void tradycardia()
+    {
+        speedState = 2;
+        heartAnim.SetFloat("Speed", 1.5f);
+        ekg.playbackSpeed = 1.5f;
     }
 }

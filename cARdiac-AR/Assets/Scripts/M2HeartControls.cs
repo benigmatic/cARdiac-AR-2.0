@@ -109,6 +109,19 @@ public class M2HeartControls : MonoBehaviour
         activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
         activeHeartModel.transform.localScale =  new Vector3(.025f, .025f, .025f);
+
+        if (speedState == 0)
+        {
+            slow();
+        }
+        else if (speedState == 1)
+        {
+            normal();
+        }
+        else if (speedState == 2)
+        {
+            fast();
+        }
     }
 
     public void anatomy()
@@ -323,5 +336,29 @@ public class M2HeartControls : MonoBehaviour
         aFibVideo.playbackSpeed  = 1.5f;
         aFlutVideo.playbackSpeed  = 1.5f;
         avnrtVideo.playbackSpeed  = 1.5f;
+    }
+
+    public void setHeartInactive()
+    {
+        if (activeHeartModel != null)
+        {
+            activeHeartModel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("activeHeartModel is null!");
+        }
+    }
+
+    public void setHeartActive()
+    {
+        if (activeHeartModel != null)
+        {
+            activeHeartModel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("activeHeartModel is null!");
+        }
     }
 }

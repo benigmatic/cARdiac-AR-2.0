@@ -62,6 +62,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Contractility";
         promptText.text = "The amount of calcium entering a cardiac muscle cell affects its contractility, " +
@@ -77,6 +78,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Preload";
         promptText.text = "Preload is the degree of stretching of cardiac muscle cells as the ventricles fill with blood. " +
@@ -91,6 +93,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Afterload";
         promptText.text = "Afterload is the stress on the left ventricular wall during contraction. Importantly, " +
@@ -108,11 +111,13 @@ public class NavBarManager : MonoBehaviour
         heartModel.SetActive(false);
     }
 
+
     public void rhythms()
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M2HeartControls>().resetHeartPosition();
     }
 
     public void aorta()
