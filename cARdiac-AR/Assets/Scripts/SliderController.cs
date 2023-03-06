@@ -18,4 +18,9 @@ public class SliderController : MonoBehaviour
     {
         slider.SliderValue = initialSliderValue;
     }
+
+    public bool HasSliderChanged()
+    {
+        return Mathf.Abs(slider.SliderValue - initialSliderValue) > 0.01f;
+    }
 }

@@ -28,6 +28,8 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject continueButton;
 
+    public GameObject slider;
+
     private Vector3 originalPos;
 
     private Vector3 currPos;
@@ -46,7 +48,7 @@ public class TutorialManager : MonoBehaviour
     private float timeElapsed = 0;
     
 
-    public Dialogue[] currentMessages = new Dialogue[12];
+    public Dialogue[] currentMessages = new Dialogue[14];
     int activeMessage = 0;
 
     void DisplayMessage() {
@@ -104,9 +106,19 @@ public class TutorialManager : MonoBehaviour
 
         if (activeMessage == 11)
         {
+            heartModel.SetActive(false);
+
+            slider.SetActive(true);
+
             continueButton.SetActive(false);
         }
 
+        if (activeMessage == 13)
+        {
+            slider.SetActive(false);
+
+            continueButton.SetActive(false);
+        }
         
 
         if (activeMessage < currentMessages.Length) {
@@ -123,13 +135,15 @@ public class TutorialManager : MonoBehaviour
         currentMessages[2] = new Dialogue("Let’s try moving an object.");
         currentMessages[3] = new Dialogue("To move an object, reach out and grab it. While holding it move your hand to drag the object.");
         currentMessages[4] = new Dialogue("Good job!");
-        currentMessages[5] = new Dialogue("Now let’s try rotating an object. To rotate an object, reach out and grab it. While holding it twist your hand to turn the object.");
+        currentMessages[5] = new Dialogue("Next let’s try rotating an object. To rotate an object, reach out and grab it. While holding it twist your hand to turn the object.");
         currentMessages[6] = new Dialogue("Great!");
         currentMessages[7] = new Dialogue("Now, let’s try expanding an object. Grab the object with both hands and pinch the opposite ends of it. Now pinch and pull your hands away from each other.");
         currentMessages[8] = new Dialogue("You got it!");
-        currentMessages[9] = new Dialogue("Finally, let’s try shrinking an object. Grab the object with both hands and pinch the opposite ends of it. Now pinch and push your hands towards each other.");
+        currentMessages[9] = new Dialogue("Let’s try shrinking an object now. Grab the object with both hands and pinch the opposite ends of it. Now pinch and push your hands towards each other.");
         currentMessages[10] = new Dialogue("Fantastic!");
-        currentMessages[11] = new Dialogue("This concludes the tutorial! Launching application now…");
+        currentMessages[11] = new Dialogue("Finally, let’s try moving the slider. Reach out and pinch the thumb and drag it to one of the ends of the slider.");
+        currentMessages[12] = new Dialogue("Amazing!");
+        currentMessages[13] = new Dialogue("This concludes the tutorial! Launching application now…");
     }
 
     public void resetHeartPosition()
@@ -145,6 +159,8 @@ public class TutorialManager : MonoBehaviour
         tutorialMessages(currentMessages);
 
         heartModel.SetActive(false);
+
+        slider.SetActive(false);
     }
 
     // Update is called once per frame
@@ -198,8 +214,18 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        // On the last prompt load the next scene after time delay.
+        // Check slider movement from user.
         if (activeMessage == 11)
+        {
+            if (FindObjectOfType<SliderController>().HasSliderChanged())
+            {
+                continueButton.SetActive(true);
+                NextMessage();
+            }
+        }
+
+        // On the last prompt load the next scene after time delay.
+        if (activeMessage == 13)
         {
             timeElapsed += Time.deltaTime;
 
