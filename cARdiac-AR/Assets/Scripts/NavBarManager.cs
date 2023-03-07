@@ -49,10 +49,11 @@ public class NavBarManager : MonoBehaviour
             "As well as learn about the determinants of cardiac output and view forms of heart rates. " +
             "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
         }
-        else if(String.Equals(sceneName, m2SceneName))
-        {
-            FindObjectOfType<M2HeartRhythms>().sinus();
-        } 
+        // In case there is ever a start prompt for M2.
+        // else if(String.Equals(sceneName, m2SceneName))
+        // {
+            
+        // } 
 
     }
 
@@ -61,6 +62,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Contractility";
         promptText.text = "The amount of calcium entering a cardiac muscle cell affects its contractility, " +
@@ -76,6 +78,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Preload";
         promptText.text = "Preload is the degree of stretching of cardiac muscle cells as the ventricles fill with blood. " +
@@ -90,6 +93,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
         promptTitle.text = "Afterload";
         promptText.text = "Afterload is the stress on the left ventricular wall during contraction. Importantly, " +
@@ -107,11 +111,57 @@ public class NavBarManager : MonoBehaviour
         heartModel.SetActive(false);
     }
 
+
     public void rhythms()
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         heartModel.SetActive(true);
+        FindObjectOfType<M2HeartControls>().resetHeartPosition();
+    }
+
+    public void aorta()
+    {
+        promptTitle.text = "Aorta";
+        promptText.text = "The main artery of the body, supplying oxygenated blood to the circulatory system.";
+    }
+
+    public void sinoatrialNode()
+    {
+        promptTitle.text = "Sinoatrial Node";
+        promptText.text = "A small body of specialized muscle fibers, located in the right atrium of the heart, " +
+        "whose activity is responsible for initiating the heartbeat.";
+    }
+
+    public void rightAtrium()
+    {
+        promptTitle.text = "Right Atrium";
+        promptText.text = "Receives blood low in oxygen from the body and then empties the blood into the right ventricle.";
+    }
+
+    public void leftAtrium()
+    {
+        promptTitle.text = "Left Atrium";
+        promptText.text = "Receives blood full of oxygen from the lungs and then empties the blood into the left ventricle.";        
+    }
+
+    public void antrioventricularNode()
+    {
+        promptTitle.text = "Atrioventricular Node";
+        promptText.text = "A small structure in the heart, located in the Koch triangle, " + 
+        "near the coronary sinus on the interatrial septum.";        
+    }
+
+    public void rightVentricle()
+    {
+        promptTitle.text = "Right Ventricle";
+        promptText.text = "Pumps blood low in oxygen to the lungs.";        
+    }
+
+    public void leftVentricle()
+    {
+        promptTitle.text = "Left Ventricle";
+        promptText.text = "Pumps blood full of oxygen out to the body.";  
     }
 
 }

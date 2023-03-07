@@ -6,10 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class Question
 {
-    public int FID;
+    public int FID, grade, confidence;
     public string Prompt, Answer;
 
     public Question(string q, string a)
@@ -33,6 +34,10 @@ public class FlashcardManager : MonoBehaviour
     public GameObject correctButton;
     public GameObject incorrectButton;
     public Question[] ques;
+    public DataManager savedData;
+    List<Dictionary<string, object>> data;
+
+
 
     private float flipTime = 0.5f;
     private int faceSide = 0;   // 0 is the front of the flashcard, 1 is the back of it
@@ -44,18 +49,17 @@ public class FlashcardManager : MonoBehaviour
     private float distancePerTime;
     private float timeCount = 0;
 
-    private float startingTick;
 
     // Start is called before the first frame update
     void Start()
     {
-        // startingTick = SliderEventHandler.SliderValue;
-
-        // Debug.Log("Starting tick = " + startingTick);
-
+        data = CSVReader.Read("cardiac_flashcards");
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
         distancePerTime = r.localScale.x / flipTime;
+
+        
+        
 
         // Gets flashcard questions and answers from database
         StartCoroutine(GetRequest(ques));
@@ -98,10 +102,17 @@ public class FlashcardManager : MonoBehaviour
         }
     }
 
-    public void NextCard()
+    public void NextCard(int grade)
     {
+        ques[cardNum].grade = grade;
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
+        
+        // Resets Slider position.
+        FindObjectOfType<SliderController>().ResetSliderValue();
+
+        // Uploads data to database for each card
+        StartCoroutine(Upload());
 
         faceSide = 0;
         cardNum++;
@@ -110,8 +121,16 @@ public class FlashcardManager : MonoBehaviour
             cardNum = 0;
         }
 
+        ques[cardNum].confidence = 1; // Sets default confidence value
         cardText.text = ques[cardNum].Prompt;
         cardCounter.text = (cardNum + 1).ToString() + " / " + ques.Length;
+
+
+    }
+
+    public void getConfidence(int confidence)
+    {
+        ques[cardNum].confidence = confidence;
     }
 
     public void FlipCard()
@@ -125,34 +144,35 @@ public class FlashcardManager : MonoBehaviour
 
     public void m1Cards(Question[] cards)
     {
-        cards[0] = new Question("The force that the heart must contract against to pump blood into the systemic circulation:", "Afterload");
-        cards[1] = new Question("The stretch on the heart prior to contraction:", "Preload");
-        cards[2] = new Question("The force and rate that the heart beats with:", "Contractility");
-        cards[3] = new Question("Contractility is determined by:", "Myocyte calcium levels");
-        cards[4] = new Question("The most posterior chamber of the heart:", "Left atrium");
-        cards[5] = new Question("The most anterior chamber of the heart:", "Right ventricle");
-        cards[6] = new Question("The P wave on an ECG represents:", "Atrial depolarization");
-        cards[7] = new Question("The QRS complex on an ECG represent:", "Ventricular depolarization");
-        cards[8] = new Question("The T wave on an ECG represents:", "Ventricular repolarization");
-        cards[9] = new Question("Electrical conduction in the heart is slowest through which node?", "Atrioventricular Node");
-        cards[10] = new Question("Conduction through the AV node is represented on an ECG as:", "The PR interval");
-        cards[11] = new Question("A slowed heart rate (i.e., regularly below 60 BPM in the adult) is called:", "Bradycardia");
+        // Load from csv
+        cards[0] = new Question((string)data[0]["Prompt"], (string)data[0]["Answer"]);
+        cards[1] = new Question((string)data[1]["Prompt"], (string)data[1]["Answer"]);
+        cards[2] = new Question((string)data[2]["Prompt"], (string)data[2]["Answer"]);
+        cards[3] = new Question((string)data[3]["Prompt"], (string)data[3]["Answer"]);
+        cards[4] = new Question((string)data[4]["Prompt"], (string)data[4]["Answer"]);
+        cards[5] = new Question((string)data[5]["Prompt"], (string)data[5]["Answer"]);
+        cards[6] = new Question((string)data[6]["Prompt"], (string)data[6]["Answer"]);
+        cards[7] = new Question((string)data[7]["Prompt"], (string)data[7]["Answer"]);
+        cards[8] = new Question((string)data[8]["Prompt"], (string)data[8]["Answer"]);
+        cards[9] = new Question((string)data[9]["Prompt"], (string)data[9]["Answer"]);
+        cards[10] = new Question((string)data[10]["Prompt"], (string)data[10]["Answer"]);
+        cards[11] = new Question((string)data[11]["Prompt"], (string)data[11]["Answer"]);
     }
 
     public void m2Cards(Question[] cards)
     {
-        cards[0] = new Question("Narrow QRS complex is typical of which arrhythmia?", "AVNRT");
-        cards[1] = new Question("The \"sawtooth\" ECG pattern observed with atrial flutter is formed by which ECG component?", "P waves that are continuous");
-        cards[2] = new Question("Sinus tachycardia is any heart rate above how many BPM in an adult?", "100 BMP");
-        cards[3] = new Question("Which arrhythmia is characterized by supraventricular tachycardia(SVT)?", "AVNRT");
-        cards[4] = new Question("\"Irregularly irregular\" RR interval is descriptive of which arrhythmia?", "Atrial fibrillation");
-        cards[5] = new Question("Retrograde P wave is characteristic of which arrhythmia?", "AVNRT");
-        cards[6] = new Question("Define 4:1 conduction in atrial flutter.", "4 atrial contractions to every 1 ventricular contraction");
-        cards[7] = new Question("Sinus bradycardia is any heart rate above how many BPM in an adult?", "60 BPM");
-        cards[8] = new Question("Risk of thromboembolism related to blood pooling in the atrial appendages is greatest in which arrhythmia?", "Atrial fibrillation");
-        cards[9] = new Question("Vagal maneuvers are a potential intervention for tachyarrhythmias or bradyarrhythmias?", "Tachyarrhythmias, particularly supraventricular tachycardia (SVT)");
-        cards[10] = new Question("The QRS complex on an ECG represents:", "Ventricular depolarization");
-        cards[11] = new Question("The T wave on an ECG represents:", "Ventricular repolarization");
+        cards[0] = new Question((string)data[12]["Prompt"], (string)data[12]["Answer"]);
+        cards[1] = new Question((string)data[13]["Prompt"], (string)data[13]["Answer"]);
+        cards[2] = new Question((string)data[14]["Prompt"], (string)data[14]["Answer"]);
+        cards[3] = new Question((string)data[15]["Prompt"], (string)data[15]["Answer"]);
+        cards[4] = new Question((string)data[16]["Prompt"], (string)data[16]["Answer"]);
+        cards[5] = new Question((string)data[17]["Prompt"], (string)data[17]["Answer"]);
+        cards[6] = new Question((string)data[18]["Prompt"], (string)data[18]["Answer"]);
+        cards[7] = new Question((string)data[19]["Prompt"], (string)data[19]["Answer"]);
+        cards[8] = new Question((string)data[20]["Prompt"], (string)data[20]["Answer"]);
+        cards[9] = new Question((string)data[21]["Prompt"], (string)data[21]["Answer"]);
+        cards[10] = new Question((string)data[22]["Prompt"], (string)data[22]["Answer"]);
+        cards[11] = new Question((string)data[23]["Prompt"], (string)data[23]["Answer"]);
     }
 
     IEnumerator GetRequest(Question[] cards)
@@ -171,7 +191,7 @@ public class FlashcardManager : MonoBehaviour
             // If webRequest fails or bad uri gets cardoded flascard data, else gets flashcard data from database
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == "No Flashcards found")
             {
-                Debug.Log("Couldn't connect to website");
+                Debug.Log("Couldn't connect to website when retrieving data");
                 Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
                 Debug.Log("WebRequest result: " + webRequest.result);
                 Debug.Log("WebRequest error: " + webRequest.error);
@@ -205,11 +225,46 @@ public class FlashcardManager : MonoBehaviour
                 }
             }
 
-            Debug.Log(ques[0].Prompt);
-            Debug.Log(ques[1].Prompt);
-
+            ques[cardNum].confidence = 1; // Sets default confidence value
             cardText.text = ques[cardNum].Prompt;
             cardCounter.text = 1 + " / " + ques.Length;
+        }
+    }
+
+    IEnumerator Upload()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("FID", ques[cardNum].FID);
+        form.AddField("SID", savedData.data.SID);
+        form.AddField("Grade", ques[cardNum].grade);
+        form.AddField("TimeSpent", "00:00:00");
+        form.AddField("Confidence", ques[cardNum].confidence);
+        form.AddField("Login", savedData.data.LoggedIn);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addFlashcardAttempt.php", form))
+        {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("Couldn't connect to website when uploading data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else if (webRequest.downloadHandler.text != "New record created successfully")
+            {
+                Debug.Log("Couldn't upload data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+            }
         }
     }
 }

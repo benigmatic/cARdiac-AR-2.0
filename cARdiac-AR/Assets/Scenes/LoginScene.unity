@@ -165,8 +165,8 @@ MonoBehaviour:
   - {fileID: 7283243}
   data:
     SID: 
-    Name: 
     Section: 
+    LoggedIn: 
 --- !u!114 &7283245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3362,8 +3362,8 @@ MonoBehaviour:
   - {fileID: 648310472}
   data:
     SID: 
-    Name: 
     Section: 
+    LoggedIn: 
 --- !u!114 &648310482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6722,7 +6722,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fa6f77dff8ee7b43926545e5b2baeed, type: 2}
+  - {fileID: 2100000, guid: 73d66e97487297344a4a7a0135b7a631, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6917,8 +6917,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     SID: 
-    Name: 
     Section: 
+    LoggedIn: 
 --- !u!4 &1329720719
 Transform:
   m_ObjectHideFlags: 0
