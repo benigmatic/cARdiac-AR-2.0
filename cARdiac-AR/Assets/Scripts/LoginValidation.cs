@@ -84,6 +84,47 @@ public class LoginValidation : MonoBehaviour
         }
     }
 
+    IEnumerator GetRequest(string uri, string aInput, string pInput)
+    {
+        string error1 = "Invalid password";
+        string error2 = "No Students found in the table";
+        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=" + access.text + "&var2=" + password.text);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == error1)
+            {
+                errorText.text = webRequest.downloadHandler.text;
+                errorText.gameObject.SetActive(true);
+                errorText.enabled = true;
+                Debug.Log(webRequest.downloadHandler.text);
+                Debug.Log(webRequest.result);
+                Debug.Log(webRequest.error);
+                Debug.Log("Offline Login");
+                savedData.data.SID = "Offline Guest";
+                savedData.data.Section = "2";
+                savedData.data.LoggedIn = "0";
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                errorText.enabled = false;
+                Debug.Log(webRequest.downloadHandler.text);
+                data = Login.CreateFromJSON(webRequest.downloadHandler.text);
+
+                savedData.data.SID = data.SID;
+                savedData.data.Section = data.Section;
+                savedData.data.LoggedIn = data.LoggedIn;
+                Debug.Log("Online Login");
+                Debug.Log("Login Successful :)");
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+    }
+
     public void CheckValidation()
     {
         string aInput = access.text;
@@ -102,7 +143,14 @@ public class LoginValidation : MonoBehaviour
 
     public void guestAccess()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        string aInput = "123";
+        string pInput = "123";
+
+        // Checks if website is valid.
+        StartCoroutine(GetRequest("https://hemo-cardiac.azurewebsites.net/login.php?var1=" + aInput + "&var2=" + pInput, aInput, pInput));
+       
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     
 }
