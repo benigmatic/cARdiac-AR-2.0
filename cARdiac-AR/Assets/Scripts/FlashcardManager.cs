@@ -7,11 +7,14 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
 using Microsoft.MixedReality.Toolkit.UI;
+using System.Diagnostics;
+
+using Debug = UnityEngine.Debug;
 
 public class Question
 {
     public int FID, grade, confidence;
-    public string Prompt, Answer;
+    public string Prompt, Answer, time;
 
     public Question(string q, string a)
     {
@@ -48,6 +51,8 @@ public class FlashcardManager : MonoBehaviour
     private int cardNum = 0;
     private float distancePerTime;
     private float timeCount = 0;
+    Stopwatch watch = new Stopwatch();
+    TimeSpan time;
 
 
     // Start is called before the first frame update
@@ -104,6 +109,11 @@ public class FlashcardManager : MonoBehaviour
 
     public void NextCard(int grade)
     {
+        watch.Stop();
+        time = watch.Elapsed;
+        ques[cardNum].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        Debug.Log(ques[cardNum].time);
+
         ques[cardNum].grade = grade;
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
@@ -124,8 +134,8 @@ public class FlashcardManager : MonoBehaviour
         ques[cardNum].confidence = 1; // Sets default confidence value
         cardText.text = ques[cardNum].Prompt;
         cardCounter.text = (cardNum + 1).ToString() + " / " + ques.Length;
-
-
+        watch = new Stopwatch(); // Creates new stopwatch so time does not add together
+        watch.Start();
     }
 
     public void getConfidence(int confidence)
@@ -228,6 +238,7 @@ public class FlashcardManager : MonoBehaviour
             ques[cardNum].confidence = 1; // Sets default confidence value
             cardText.text = ques[cardNum].Prompt;
             cardCounter.text = 1 + " / " + ques.Length;
+            watch.Start();  // Starts the timer
         }
     }
 
@@ -237,7 +248,7 @@ public class FlashcardManager : MonoBehaviour
         form.AddField("FID", ques[cardNum].FID);
         form.AddField("SID", savedData.data.SID);
         form.AddField("Grade", ques[cardNum].grade);
-        form.AddField("TimeSpent", "00:00:00");
+        form.AddField("TimeSpent", ques[cardNum].time);
         form.AddField("Confidence", ques[cardNum].confidence);
         form.AddField("Login", savedData.data.LoggedIn);
 
