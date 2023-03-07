@@ -143,8 +143,8 @@ public class LoginValidation : MonoBehaviour
 
     public void guestAccess()
     {
-        string aInput = "123";
-        string pInput = "123";
+        string aInput = "guest";
+        string pInput = "guest";
 
         // Checks if website is valid.
         StartCoroutine(GetRequest("https://hemo-cardiac.azurewebsites.net/login.php?var1=" + aInput + "&var2=" + pInput, aInput, pInput));
