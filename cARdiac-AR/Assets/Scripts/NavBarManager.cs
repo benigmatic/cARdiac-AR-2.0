@@ -122,8 +122,6 @@ public class NavBarManager : MonoBehaviour
         flashcardSection.SetActive(false);
         casesSection.SetActive(true);
         heartModel.SetActive(true);
-        FindObjectOfType<M2HeartControls>().normal();
-        FindObjectOfType<M2HeartControls>().atrialFibr();
     }
 
 
@@ -131,6 +129,7 @@ public class NavBarManager : MonoBehaviour
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
+        casesSection.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M2HeartControls>().resetHeartPosition();
     }

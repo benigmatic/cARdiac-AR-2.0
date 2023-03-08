@@ -203,8 +203,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.084699064, y: -0.02409377, z: 0.46804315}
-  - {x: -0.04429905, y: -0.024643768, z: 0.46654314}
+  - {x: -0.064869665, y: -0.04707896, z: -0.0033973868}
+  - {x: -0.06085842, y: -0.047227837, z: -0.012098892}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -430,10 +430,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: -0.16080007, y: 0.06409998, z: 0.00300006}
+    position: {x: -0.16080013, y: 0.06409998, z: 0.0029999893}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: -0.08000002, y: 0.062999986, z: 0.000000024831607}
+    position: {x: -0.08000008, y: 0.06299997, z: -0.000000007512903}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &390083
 MonoBehaviour:
@@ -8643,8 +8643,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.08007652, y: 0.051534597, z: 0.45744696}
-  - {x: -0.08007652, y: 0.16903454, z: 0.45744696}
+  - {x: -0.06650383, y: -0.02914232, z: -0.0054972777}
+  - {x: -0.066332154, y: -0.0012941194, z: -0.005477399}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -8870,10 +8870,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: 0.0000000053200395, y: 0.000000022081286, z: 0.000000022836678}
+    position: {x: -0.000000016318358, y: 0.000000007119467, z: 0.000000016345542}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: 0.0000000055389, y: 0.23499994, z: 0.00000002338383}
+    position: {x: -0.00000003546473, y: 0.23500001, z: -0.000000024873321}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &235012571
 MonoBehaviour:
@@ -11127,32 +11127,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.50911945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00036453456
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9085159
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.852089
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00035329838
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5233857
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0034132386
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11172,7 +11184,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 795da368e87bfc047938680e266553ba, type: 2}
     - target: {fileID: 9500000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: f15f9eca068a7da4092f8b1f245ef305, type: 3}
       propertyPath: m_DirtyAABB
@@ -11935,7 +11947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 309835579}
   m_LocalRotation: {x: -0.0018546258, y: -0.9659155, z: 0.0050141173, w: 0.25880238}
-  m_LocalPosition: {x: -0.06743584, y: -0.05430931, z: 0.5}
+  m_LocalPosition: {x: -0.06743584, y: -0.05430931, z: 0}
   m_LocalScale: {x: 0.024999997, y: 0.024999999, z: 0.024999997}
   m_Children:
   - {fileID: 2102860545}
@@ -12147,7 +12159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &329554257
 Transform:
   m_ObjectHideFlags: 0
@@ -14189,13 +14201,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401844275}
-  m_LocalRotation: {x: 0, y: -0.9659258, z: 0, w: 0.2588191}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -0.04, y: 0, z: -0.02}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children: []
   m_Father: {fileID: 125618847}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -150, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &404218149
 GameObject:
   m_ObjectHideFlags: 0
@@ -20972,8 +20984,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.08020225, y: 0.022555117, z: 0.45037234}
-  - {x: -0.05820226, y: 0.046055116, z: 0.44787234}
+  - {x: -0.068055205, y: -0.036000807, z: -0.006233702}
+  - {x: -0.06619192, y: -0.030438932, z: -0.01114848}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -21199,10 +21211,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: -0.124000035, y: 0.0009999954, z: 0.005000008}
+    position: {x: -0.12400007, y: 0.0009999796, z: 0.0050000097}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: -0.080000035, y: 0.047999997, z: 0.0000000025955103}
+    position: {x: -0.080000095, y: 0.04799998, z: -0.000000020127338}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &667177019
 MonoBehaviour:
@@ -24728,8 +24740,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.11965869, y: 0.0071857367, z: 0.43350804}
-  - {x: -0.1609587, y: 0.014885749, z: 0.44130808}
+  - {x: -0.07587078, y: -0.039600063, z: 0.00029776274}
+  - {x: -0.07863621, y: -0.037764825, z: 0.009865836}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -24955,10 +24967,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: 0.15260012, y: 0.03259998, z: -0.015600026}
+    position: {x: 0.15260008, y: 0.032599974, z: -0.015599987}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: 0.07000007, y: 0.048000004, z: 0.000000023683906}
+    position: {x: 0.07000001, y: 0.047999974, z: -0.0000000067118804}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &740484718
 MonoBehaviour:
@@ -26014,8 +26026,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784592622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.055, y: 0.05, z: 0.2}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalPosition: {x: 0.055, y: 0.05, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 2099255046}
   - {fileID: 1333255708}
@@ -27408,7 +27420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833194650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.017, y: 0.055, z: -0.05}
+  m_LocalPosition: {x: -0.017, y: 0.055, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 815412274}
@@ -40506,8 +40518,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.108381644, y: 0.023364432, z: 0.4393198}
-  - {x: -0.10838164, y: 0.11211443, z: 0.4393198}
+  - {x: -0.07341014, y: -0.03577938, z: -0.0014607336}
+  - {x: -0.07328047, y: -0.0147450995, z: -0.0014457188}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -40733,10 +40745,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: 0.000000013311092, y: 0.057499997, z: 0.0000000052099556}
+    position: {x: -0.000000008552776, y: 0.05749999, z: 0.0000000074439246}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: 0.000000028377574, y: 0.23500001, z: 0.0000000056232277}
+    position: {x: -0.000000025513707, y: 0.23500001, z: -0.000000027085795}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &1286274841
 MonoBehaviour:
@@ -46324,8 +46336,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.12450675, y: 0.022214163, z: 0.4498783}
-  - {x: -0.15000674, y: 0.046214163, z: 0.44987828}
+  - {x: -0.072907686, y: -0.036058348, z: 0.0030793885}
+  - {x: -0.07560512, y: -0.030357208, z: 0.008474222}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -46551,10 +46563,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: 0.121000074, y: -0.000000036647254, z: 0.000000025114343}
+    position: {x: 0.121000044, y: -0.000000041068564, z: -0.000000043398263}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: 0.07000006, y: 0.047999967, z: -0.000000026778999}
+    position: {x: 0.070000015, y: 0.04799996, z: -0.000000022720357}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &1460612087
 MonoBehaviour:
@@ -47855,8 +47867,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.105505906, y: -0.01895702, z: 0.44735676}
-  - {x: -0.1500059, y: -0.03195701, z: 0.44735676}
+  - {x: -0.071464814, y: -0.04582237, z: -0.0012146083}
+  - {x: -0.07625229, y: -0.048880767, z: 0.008190621}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.01
@@ -48082,10 +48094,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   uniformDistortionStrength: 1
   startPoint:
-    position: {x: 0.1590001, y: 0.10399998, z: 0.00000007525748}
+    position: {x: 0.15900005, y: 0.10399998, z: 0.000000019576632}
     rotation: {x: 0, y: 0, z: 0, w: 1}
   endPoint:
-    position: {x: 0.07000006, y: 0.077999994, z: 0.000000028854286}
+    position: {x: 0.069999985, y: 0.07799997, z: 0.00000001838713}
     rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &1498618544
 MonoBehaviour:
@@ -55826,7 +55838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c769b848b7a3154c8e622ec227891f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartModel: {fileID: 309835579}
+  heartModel: {fileID: 2102860544}
   resetAnchor: {fileID: 401844275}
   heartAnatomy: {fileID: 1197882459}
   tutorialWarning: {fileID: 833194650}

@@ -108,7 +108,7 @@ public class M2HeartControls : MonoBehaviour
         Debug.Log("Heart reset is called!");
         activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-        activeHeartModel.transform.localScale =  new Vector3(.025f, .025f, .025f);
+        activeHeartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
 
         if (speedState == 0)
         {
