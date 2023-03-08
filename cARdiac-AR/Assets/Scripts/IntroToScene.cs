@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CasesIntro : MonoBehaviour
+public class IntroToScene : MonoBehaviour
 {
-    public GameObject caseContent;
+    public GameObject sceneContent;
 
-    public GameObject casePrompt;
+    public GameObject introPrompt;
 
     // Start is called before the first frame update
     void Start()
     {
-        caseContent.SetActive(false);
+        sceneContent.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,10 +20,10 @@ public class CasesIntro : MonoBehaviour
         
     }
 
-    public void showCases()
+    public void showScene()
     {
-        caseContent.SetActive(true);
+        sceneContent.SetActive(true);
 
-        casePrompt.SetActive(false);
+        introPrompt.SetActive(false);
     }
 }

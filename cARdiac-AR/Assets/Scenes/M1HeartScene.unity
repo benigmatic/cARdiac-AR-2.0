@@ -24124,7 +24124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1088429875
 Transform:
   m_ObjectHideFlags: 0
@@ -41744,8 +41744,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2095479505}
-        m_TargetAssemblyTypeName: FlashcardIntro, Assembly-CSharp
-        m_MethodName: showFlashcards
+        m_TargetAssemblyTypeName: IntroToScene, Assembly-CSharp
+        m_MethodName: showScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -46212,11 +46212,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2095479503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7239382022abaac45aec88d00dab12bd, type: 3}
+  m_Script: {fileID: 11500000, guid: e20b4310587d6ad47abac170cd622fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashcardContent: {fileID: 784592622}
-  flashcardPrompt: {fileID: 2095479503}
+  sceneContent: {fileID: 784592622}
+  introPrompt: {fileID: 2095479503}
 --- !u!114 &2095479509
 MonoBehaviour:
   m_ObjectHideFlags: 0
