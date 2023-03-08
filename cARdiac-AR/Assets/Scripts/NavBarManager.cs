@@ -13,6 +13,8 @@ public class NavBarManager : MonoBehaviour
 
     public GameObject flashcardSection;
 
+    public GameObject casesSection;
+
     public GameObject heartSection;
 
     public GameObject heartModel;
@@ -25,6 +27,8 @@ public class NavBarManager : MonoBehaviour
     void Start()
     {
         flashcardSection.SetActive(false);
+
+        casesSection.SetActive(false);
         
         StartPrompt();
     }
@@ -108,7 +112,18 @@ public class NavBarManager : MonoBehaviour
     {
         heartSection.SetActive(false);
         flashcardSection.SetActive(true);
+        casesSection.SetActive(false);
         heartModel.SetActive(false);
+    }
+
+    public void cases()
+    {
+        heartSection.SetActive(false);
+        flashcardSection.SetActive(false);
+        casesSection.SetActive(true);
+        heartModel.SetActive(true);
+        FindObjectOfType<M2HeartControls>().normal();
+        FindObjectOfType<M2HeartControls>().atrialFibr();
     }
 
 

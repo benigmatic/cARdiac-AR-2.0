@@ -20,10 +20,17 @@ public class IntroToScene : MonoBehaviour
         
     }
 
-    public void showScene()
+    public void showContent()
     {
         sceneContent.SetActive(true);
 
         introPrompt.SetActive(false);
+    }
+
+    public void showCasesContent(int caseNum)
+    {
+        showContent();
+
+        FindObjectOfType<CaseManager>().getCase(caseNum);
     }
 }
