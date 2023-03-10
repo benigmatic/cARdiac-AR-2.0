@@ -3837,7 +3837,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1334803555}
         m_TargetAssemblyTypeName: CaseManager, Assembly-CSharp
-        m_MethodName: demoSubmit
+        m_MethodName: Submit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -36328,9 +36328,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 1334803555}
+        m_TargetAssemblyTypeName: CaseManager, Assembly-CSharp
+        m_MethodName: tryAgain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

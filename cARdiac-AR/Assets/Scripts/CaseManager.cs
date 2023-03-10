@@ -20,9 +20,14 @@ public class CaseManager : MonoBehaviour
 
     public TMP_Text resultDescription;
 
+    public InteractableToggleCollection toggleCollection;
+
     private int answerChoice = 0;
 
     private int correctAnswer = 1;
+
+    // This is unresponsive button in toggle collection used to reset the toggle collection.
+    private int bufferChoice = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +67,7 @@ public class CaseManager : MonoBehaviour
         answerChoice = answer;
     }
 
-    public void demoSubmit()
+    public void Submit()
     {
         submitButton.SetActive(false);
 
@@ -82,8 +87,16 @@ public class CaseManager : MonoBehaviour
         }
     }
 
-    public void demoNext()
+    // This will deselect all the toggle buttons.
+    public void DeselectAllToggles()
     {
+        toggleCollection.CurrentIndex = bufferChoice;
+    }
 
+    public void tryAgain()
+    {
+        resultPrompt.SetActive(false);
+        submitButton.SetActive(true);
+        DeselectAllToggles();
     }
 }

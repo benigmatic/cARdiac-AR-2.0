@@ -65,6 +65,7 @@ public class NavBarManager : MonoBehaviour
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
+        casesSection.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -81,6 +82,7 @@ public class NavBarManager : MonoBehaviour
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
+        casesSection.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -96,6 +98,7 @@ public class NavBarManager : MonoBehaviour
     {
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
+        casesSection.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
