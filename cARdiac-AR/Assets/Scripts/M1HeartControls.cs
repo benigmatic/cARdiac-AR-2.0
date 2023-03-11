@@ -64,7 +64,7 @@ public class M1HeartControls : MonoBehaviour
         Debug.Log("M1 Heart reset is called!");
         heartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
         heartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-        heartModel.transform.localScale =  new Vector3(.025f, .025f, .025f);
+        heartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
 
         Debug.Log("Speed state = " + speedState);
 

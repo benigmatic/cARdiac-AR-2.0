@@ -15,6 +15,8 @@ public class NavBarManager : MonoBehaviour
 
     public GameObject casesSection;
 
+    public GameObject casesObjects;
+
     public GameObject heartSection;
 
     public GameObject heartModel;
@@ -66,6 +68,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         casesSection.SetActive(false);
+        casesObjects.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -83,6 +86,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         casesSection.SetActive(false);
+        casesObjects.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -99,6 +103,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         casesSection.SetActive(false);
+        casesObjects.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -116,6 +121,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(false);
         flashcardSection.SetActive(true);
         casesSection.SetActive(false);
+        casesObjects.SetActive(false);
         heartModel.SetActive(false);
     }
 
@@ -124,7 +130,8 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(false);
         flashcardSection.SetActive(false);
         casesSection.SetActive(true);
-        heartModel.SetActive(true);
+        casesObjects.SetActive(true);
+        heartModel.SetActive(false);
     }
 
 
@@ -133,6 +140,7 @@ public class NavBarManager : MonoBehaviour
         heartSection.SetActive(true);
         flashcardSection.SetActive(false);
         casesSection.SetActive(false);
+        casesObjects.SetActive(false);
         heartModel.SetActive(true);
         FindObjectOfType<M2HeartControls>().resetHeartPosition();
     }

@@ -7,6 +7,19 @@ using TMPro;
 
 public class CaseManager : MonoBehaviour
 {
+    public GameObject sinusHeartModel;
+
+    public GameObject aFibHeartModel;
+
+    public GameObject aFlutHeartModel;
+
+    public GameObject avnrtHeartModel;
+
+    private GameObject activeHeartModel;
+
+    // This will be a game object we will base the default heart position off of.
+    public GameObject resetAnchor;
+
     public GameObject correctPrompt;
 
     public GameObject incorrectPrompt;
@@ -69,6 +82,7 @@ public class CaseManager : MonoBehaviour
             "Alcohol consumption is a risk factor for atrial fibrillation.";
             correctAnswer = 2;
             SetAnswerImages();
+            atrialFibr();
         }
         else if (currentCaseIndex == 1)
         {
@@ -81,6 +95,7 @@ public class CaseManager : MonoBehaviour
             "The proarrhythmia effects of the drug have induced atrial flutter.";
             correctAnswer = 2;
             SetAnswerImages();
+            atrialFlut();
         }
         else if (currentCaseIndex == 2)
         {
@@ -94,6 +109,7 @@ public class CaseManager : MonoBehaviour
             "against a closed tricuspid valve because the atria and ventricles can contract nearly simultaneously.";
             correctAnswer = 3;
             SetAnswerImages();
+            avnrt();
         }
     }
 
@@ -192,4 +208,75 @@ public class CaseManager : MonoBehaviour
             mat.mainTexture = answerImages[(currentCaseIndex * 3) + i];
         }
     }
+
+    public void resetHeartPosition()
+    {
+        Debug.Log("Heart reset is called!");
+        activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
+        activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
+        activeHeartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
+    }
+
+     public void atrialFibr()
+    {
+
+        activeHeartModel = aFibHeartModel;
+ 
+        activeHeartModel.SetActive(true);
+
+        // Disable the other heart models.
+        sinusHeartModel.SetActive(false);
+        aFlutHeartModel.SetActive(false);
+        avnrtHeartModel.SetActive(false);
+
+        resetHeartPosition();
+    }
+
+    public void atrialFlut()
+    {
+
+        activeHeartModel = aFlutHeartModel;
+ 
+        activeHeartModel.SetActive(true);
+
+        // Disable the other heart models.
+        sinusHeartModel.SetActive(false);
+        aFibHeartModel.SetActive(false);
+        avnrtHeartModel.SetActive(false);
+
+        resetHeartPosition();
+    }
+
+    public void avnrt()
+    {
+
+        activeHeartModel = avnrtHeartModel;
+ 
+        activeHeartModel.SetActive(true);
+
+        // Disable the other heart models.
+        sinusHeartModel.SetActive(false);
+        aFibHeartModel.SetActive(false);
+        aFlutHeartModel.SetActive(false);
+
+        resetHeartPosition();
+
+    }
+
+    public void sinus()
+    {
+
+        activeHeartModel = sinusHeartModel;
+ 
+        activeHeartModel.SetActive(true);
+
+        // Disable the other heart models.
+        aFibHeartModel.SetActive(false);
+        aFlutHeartModel.SetActive(false);
+        avnrtHeartModel.SetActive(false);
+
+        resetHeartPosition();
+    }
+
+
 }
