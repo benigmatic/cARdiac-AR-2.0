@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 
@@ -14,17 +15,29 @@ public class CaseManager : MonoBehaviour
 
     public GameObject submitButton;
 
+    public GameObject previousCaseButton;
+
     public TMP_Text caseTitle;
+
+    public TMP_Text caseQuestionText;
 
     public TMP_Text resultTitle;
 
     public TMP_Text resultDescription;
 
+    public GameObject[] answerDisplay;
+    
+    public Texture[] answerImages;
+
     public InteractableToggleCollection toggleCollection;
 
     private int answerChoice = 0;
 
-    private int correctAnswer = 1;
+    private int correctAnswer = 0;
+
+    private int currentCaseIndex = 0;
+
+    private int previousCaseIndex = -1;
 
     // This is unresponsive button in toggle collection used to reset the toggle collection.
     private int bufferChoice = 3;
@@ -43,23 +56,83 @@ public class CaseManager : MonoBehaviour
 
     public void getCase(int caseNum)
     {
-        if (caseNum == 1)
+        currentCaseIndex = caseNum;
+
+        if (currentCaseIndex == 0)
         {
             caseTitle.text = "Case 1";
+            caseQuestionText.text = "A 49-year-old man presents to the emergency department with palpatations. " +
+            "He has felt fatigued all day and the feeling got worse after drinking alcohol. " +
+            "The animation represents the patient's cardiac activity. " +
+            "Which of the following ECG strips best fits the patient's arrhythmia?";
+            resultDescription.text = "The ECG shows indistinct P waves with QRS complexes at irregular intervals. " +
+            "Alcohol consumption is a risk factor for atrial fibrillation.";
+            correctAnswer = 2;
+            SetAnswerImages();
         }
-        else if (caseNum == 2)
+        else if (currentCaseIndex == 1)
         {
             caseTitle.text = "Case 2";
+            caseQuestionText.text = "A 60-year-old woman presents to her physician feeling lightheaded and like her heart is racing. " +
+            "Patient history is significant for atrial fibrillation for which she is currently taking the antiarrhythmic drug propafenone. " +
+            "The animation represents the patient's cardiac activity. " +
+            "Which of the following ECG strips best fits the patient's arrhythmia?";
+            resultDescription.text = "The ECG demonstrates the sawtooth pattern with 2:1 conduction. " +
+            "The proarrhythmia effects of the drug have induced atrial flutter.";
+            correctAnswer = 2;
+            SetAnswerImages();
         }
-        else if (caseNum == 3)
+        else if (currentCaseIndex == 2)
         {
             caseTitle.text = "Case 3";
+            caseQuestionText.text = "A 56-year-old man presents to the emergency department with palpitations shortness of breath and a " + 
+            "pulsing sensation in his neck. The patient recalls exercising just prior to the onset of symptoms. " + 
+            "The animation represents the patient's cardiac activity. " + 
+            "Which of the following ECG strips best fits the patient's arrhythmia?";
+            resultDescription.text = "The ECG reflects AVNRT. Notice the tachycardia and retrograde P waves (upward deflections) " +
+            "after the QRS complex (large downward deflections). The pulsing sensation in the neck results from the atria contracting " +
+            "against a closed tricuspid valve because the atria and ventricles can contract nearly simultaneously.";
+            correctAnswer = 3;
+            SetAnswerImages();
         }
     }
 
-    public void getCorrectAnswer()
+    public void nextCase()
     {
-        correctAnswer = 2;
+        // Save the current case number to previous case.
+        previousCaseIndex = currentCaseIndex;
+
+        if (currentCaseIndex < 2)
+        {
+            currentCaseIndex++;
+            getCase(currentCaseIndex);
+            resultPrompt.SetActive(false);
+            submitButton.SetActive(true);
+            DeselectAllToggles();
+        }
+        else
+        {
+            // Loop back to the first case if user started on last case.
+            currentCaseIndex = 0;
+            getCase(currentCaseIndex);
+            resultPrompt.SetActive(false);
+            submitButton.SetActive(true);
+            DeselectAllToggles();
+        }
+    }
+
+    public void previousCase()
+    {
+        // Set the current case to the previous case.
+        currentCaseIndex = previousCaseIndex;
+
+        // Set the previous case to -1 so that the previous case button is not shown.
+        previousCaseIndex = -1;
+
+        getCase(currentCaseIndex);
+        resultPrompt.SetActive(false);
+        submitButton.SetActive(true);
+        DeselectAllToggles();
     }
 
     public void getAnswer(int answer)
@@ -70,6 +143,16 @@ public class CaseManager : MonoBehaviour
     public void Submit()
     {
         submitButton.SetActive(false);
+
+        // Only show previous case button if user has already gone through a case.
+        if (previousCaseIndex != -1)
+        {
+            previousCaseButton.SetActive(true);
+        }
+        else
+        {
+            previousCaseButton.SetActive(false);
+        }
 
         if (answerChoice == correctAnswer)
         {
@@ -98,5 +181,15 @@ public class CaseManager : MonoBehaviour
         resultPrompt.SetActive(false);
         submitButton.SetActive(true);
         DeselectAllToggles();
+    }
+
+    private void SetAnswerImages()
+    {
+        // Based on the case number, set the answer images.
+        for (int i = 0; i < answerDisplay.Length; i++) 
+        {
+            Material mat = answerDisplay[i].GetComponent<MeshRenderer>().material;
+            mat.mainTexture = answerImages[(currentCaseIndex * 3) + i];
+        }
     }
 }
