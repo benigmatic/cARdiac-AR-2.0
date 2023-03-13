@@ -88,7 +88,7 @@ public class LoginValidation : MonoBehaviour
     {
         string error1 = "Invalid password";
         string error2 = "No Students found in the table";
-        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=" + access.text + "&var2=" + password.text);
+        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=" + aInput + "&var2=" + pInput);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             // Request and wait for the desired page.

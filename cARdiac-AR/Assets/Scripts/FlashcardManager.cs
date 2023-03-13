@@ -36,6 +36,7 @@ public class FlashcardManager : MonoBehaviour
     public GameObject flipButton;
     public GameObject correctButton;
     public GameObject incorrectButton;
+    public GameObject DataObj;
     public Question[] ques;
     public DataManager savedData;
     List<Dictionary<string, object>> data;
@@ -62,9 +63,11 @@ public class FlashcardManager : MonoBehaviour
         correctButton.SetActive(false);
         incorrectButton.SetActive(false);
         distancePerTime = r.localScale.x / flipTime;
+        DataObj = GameObject.FindWithTag("Data");
+        savedData = DataObj.GetComponent<DataManager>();
 
-        
-        
+
+
 
         // Gets flashcard questions and answers from database
         StartCoroutine(GetRequest(ques));
@@ -245,12 +248,15 @@ public class FlashcardManager : MonoBehaviour
     IEnumerator Upload()
     {
         WWWForm form = new WWWForm();
+        Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
         form.AddField("FID", ques[cardNum].FID);
         form.AddField("SID", savedData.data.SID);
         form.AddField("Grade", ques[cardNum].grade);
         form.AddField("TimeSpent", ques[cardNum].time);
         form.AddField("Confidence", ques[cardNum].confidence);
         form.AddField("Login", savedData.data.LoggedIn);
+
+        Debug.Log("Form: " + form);
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addFlashcardAttempt.php", form))
         {
@@ -272,6 +278,7 @@ public class FlashcardManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
                 Debug.Log("Form upload complete!");
                 Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
                 Debug.Log("WebRequest result: " + webRequest.result);

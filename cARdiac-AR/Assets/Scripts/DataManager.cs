@@ -17,11 +17,12 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        
         if (Instance != null)
         {
             Destroy(gameObject);
-            return;
         }
+        
 
         if (SceneManager.GetActiveScene().name != "LoginScene" && data.SID == "")
         {
@@ -36,8 +37,9 @@ public class DataManager : MonoBehaviour
     {
         string error1 = "Invalid password";
         string error2 = "No Students found in the table";
-        string uri = "https://hemo-cardiac.azurewebsites.net/login.php?var1=123@aol.com&var2=123";
-        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=123@aol.com&var2=123");
+        string uri = "https://hemo-cardiac.azurewebsites.net/login.php?var1=guest&var2=guest";
+        Debug.Log("Checking request for https://hemo-cardiac.azurewebsites.net/login.php?var1=guest&var2=guest");
+        Debug.Log("No active user in scene, loading guest");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             // Request and wait for the desired page.
