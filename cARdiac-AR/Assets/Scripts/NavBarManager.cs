@@ -148,45 +148,52 @@ public class NavBarManager : MonoBehaviour
     public void aorta()
     {
         promptTitle.text = "Aorta";
-        promptText.text = "The main artery of the body, supplying oxygenated blood to the circulatory system.";
+        promptText.text = "Receives oxygen-rich blood from the left ventricle and distributes it to the heart " +
+        "and body as part of systemic circulation.";
     }
 
     public void sinoatrialNode()
     {
         promptTitle.text = "Sinoatrial Node";
-        promptText.text = "A small body of specialized muscle fibers, located in the right atrium of the heart, " +
-        "whose activity is responsible for initiating the heartbeat.";
+        promptText.text = "Specialized cardiac muscle fibers in the right atrium that initiate and regulate impulses " +
+        "for contraction of the heart. It is stimulated and inhibited by the sympathetic and parasympathetic division of " +
+        "the ANS, respectively. Supplied by SA nodal branches from either the right coronary artery (60% of people) or " + 
+        "circumflex branch of the left coronary artery (40% of people).";
     }
 
     public void rightAtrium()
     {
         promptTitle.text = "Right Atrium";
-        promptText.text = "Receives blood low in oxygen from the body and then empties the blood into the right ventricle.";
+        promptText.text = "Receives oxygen-poor blood from the body via the superior and inferior vena cavae and " +
+        "from the heart via the coronary sinus and delivers it to the right ventricle.";
     }
 
     public void leftAtrium()
     {
         promptTitle.text = "Left Atrium";
-        promptText.text = "Receives blood full of oxygen from the lungs and then empties the blood into the left ventricle.";        
+        promptText.text = "Receives oxygen-rich blood from the lungs via the pulmonary veins and delivers it to the left ventricle.";        
     }
 
     public void antrioventricularNode()
     {
         promptTitle.text = "Atrioventricular Node";
-        promptText.text = "A small structure in the heart, located in the Koch triangle, " + 
-        "near the coronary sinus on the interatrial septum.";        
+        promptText.text = "Smaller collection of specialized cardiac muscle fibers in the interatrial septum" + 
+        "that propagate impulses from the atria to the ventricles via the atrioventricular bundle, bundle branches, " +
+        "and subendocardial branches, also called Purkinje fibers. It is stimulated and inhibited by the sympathetic " +
+        "and parasympathetic division of the ANS, respectively. Supplied by AV nodal branch of the right coronary artery.";        
     }
 
     public void rightVentricle()
     {
         promptTitle.text = "Right Ventricle";
-        promptText.text = "Pumps blood low in oxygen to the lungs.";        
+        promptText.text = "Receives oxygen-poor blood from the right atrium and distributes it to the lungs" + 
+        "via the pulmonary trunk and pulmonary arteries for oxygenation as part of pulmonary circulation.";        
     }
 
     public void leftVentricle()
     {
         promptTitle.text = "Left Ventricle";
-        promptText.text = "Pumps blood full of oxygen out to the body.";  
+        promptText.text = "Receives oxygen-rich blood from the left atrium and delivers it to the aorta.";  
     }
 
 }
