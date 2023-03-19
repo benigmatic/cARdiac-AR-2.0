@@ -39,6 +39,14 @@ public class M2HeartControls : MonoBehaviour
 
     public GameObject avnrtEKG;
 
+    public GameObject sinusBloodContainer;
+
+    public GameObject aFibBloodContainer;
+
+    public GameObject aFlutBloodContainer;
+
+    public GameObject avnrtBloodContainer;
+
     public Animator sinusAnim;
 
     public Animator aFibAnim;
@@ -46,6 +54,14 @@ public class M2HeartControls : MonoBehaviour
     public Animator aFlutAnim;
 
     public Animator avnrtAnim;
+
+    public Animator[] sinusBlood;
+
+    public Animator[] aFibBlood;
+
+    public Animator[] aFlutBlood;
+
+    public Animator[] avnrtBlood;
 
     public VideoPlayer sinusVideo;
 
@@ -67,6 +83,12 @@ public class M2HeartControls : MonoBehaviour
 
     private Vector3 hRot;
 
+    public Material transparentMaterial;
+
+    private Material originalMaterial;
+
+    private bool isTransparent = false;
+
     private float currentTime = 0f;
     private float startingTime = 0.1f;
 
@@ -79,12 +101,22 @@ public class M2HeartControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
         currentTime = startingTime;
 
         sinusAnatomy.SetActive(false);
         aFlutAnatomy.SetActive(false);
         aFibAnatomy.SetActive(false);
         avnrtAnatomy.SetActive(false);
+
+        sinusBloodContainer.SetActive(false);
+        aFibBloodContainer.SetActive(false);
+        aFlutBloodContainer.SetActive(false);
+        avnrtBloodContainer.SetActive(false);
+
+        originalMaterial = activeHeartModel.GetComponent<Renderer>().material;
+
     }
 
     // Update is called once per frame
@@ -161,6 +193,12 @@ public class M2HeartControls : MonoBehaviour
 
         resetHeartPosition();
 
+        // If the heart was transparent before switching, make it transparent again.
+        if (isTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+        }
+
         if (speedState == 0)
         {
             slow();
@@ -199,6 +237,12 @@ public class M2HeartControls : MonoBehaviour
 
         resetHeartPosition();
 
+        // If the heart was transparent before switching, make it transparent again.
+        if (isTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+        }
+
         if (speedState == 0)
         {
             slow();
@@ -236,6 +280,12 @@ public class M2HeartControls : MonoBehaviour
         aFlutEKG.SetActive(false);
 
         resetHeartPosition();
+
+        // If the heart was transparent before switching, make it transparent again.
+        if (isTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+        }
 
         if (speedState == 0)
         {
@@ -276,6 +326,12 @@ public class M2HeartControls : MonoBehaviour
 
         resetHeartPosition();
 
+        // If the heart was transparent before switching, make it transparent again.
+        if (isTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+        }
+
         if (speedState == 0)
         {
             slow();
@@ -306,6 +362,26 @@ public class M2HeartControls : MonoBehaviour
         aFibVideo.playbackSpeed  = 0.5f;
         aFlutVideo.playbackSpeed  = 0.5f;
         avnrtVideo.playbackSpeed  = 0.5f;
+
+        foreach (Animator animator in sinusBlood)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in aFibBlood)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in aFlutBlood)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in avnrtBlood)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
     }
 
     public void normal()
@@ -321,6 +397,26 @@ public class M2HeartControls : MonoBehaviour
         aFibVideo.playbackSpeed  = 1f;
         aFlutVideo.playbackSpeed  = 1f;
         avnrtVideo.playbackSpeed  = 1f;
+
+        foreach (Animator animator in sinusBlood)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in aFibBlood)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in aFlutBlood)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in avnrtBlood)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
     }
 
     public void fast()
@@ -336,6 +432,26 @@ public class M2HeartControls : MonoBehaviour
         aFibVideo.playbackSpeed  = 1.5f;
         aFlutVideo.playbackSpeed  = 1.5f;
         avnrtVideo.playbackSpeed  = 1.5f;
+
+        foreach (Animator animator in sinusBlood)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in aFibBlood)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in aFlutBlood)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in avnrtBlood)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
     }
 
     public void setHeartInactive()
@@ -361,4 +477,29 @@ public class M2HeartControls : MonoBehaviour
             Debug.LogWarning("activeHeartModel is null!");
         }
     }
+
+    public void blood()
+    {
+        if (!isTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            isTransparent = true;
+        }
+        else
+        {
+            activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
+            isTransparent = false;
+        }
+
+        sinusBloodContainer.SetActive(!sinusBloodContainer.activeSelf);
+        aFibBloodContainer.SetActive(!aFibBloodContainer.activeSelf);
+        aFlutBloodContainer.SetActive(!aFlutBloodContainer.activeSelf);
+        avnrtBloodContainer.SetActive(!avnrtBloodContainer.activeSelf);
+    }
+
+    public void ResetMaterial()
+    {
+        activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
+    }
+
 }
