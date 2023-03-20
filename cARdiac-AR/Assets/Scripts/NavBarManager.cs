@@ -177,7 +177,7 @@ public class NavBarManager : MonoBehaviour
     public void antrioventricularNode()
     {
         promptTitle.text = "Atrioventricular Node";
-        promptText.text = "Smaller collection of specialized cardiac muscle fibers in the interatrial septum" + 
+        promptText.text = "Smaller collection of specialized cardiac muscle fibers in the interatrial septum " + 
         "that propagate impulses from the atria to the ventricles via the atrioventricular bundle, bundle branches, " +
         "and subendocardial branches, also called Purkinje fibers. It is stimulated and inhibited by the sympathetic " +
         "and parasympathetic division of the ANS, respectively. Supplied by AV nodal branch of the right coronary artery.";        
