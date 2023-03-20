@@ -16,6 +16,8 @@ public class M2HeartControls : MonoBehaviour
 
     public GameObject avnrtHeartModel;
 
+    public GameObject slicedHeartModel;
+
     private GameObject activeHeartModel;
 
     // This will be a game object we will base the default heart position off of.
@@ -107,6 +109,8 @@ public class M2HeartControls : MonoBehaviour
 
     private bool isElectricTransparent = false;
 
+    private bool isSliced = false;
+
     private float currentTime = 0f;
     private float startingTime = 0.1f;
 
@@ -161,7 +165,17 @@ public class M2HeartControls : MonoBehaviour
     public void resetHeartPosition()
     {
         Debug.Log("Heart reset is called!");
-        activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
+
+        // Position the heart model higher if it's sliced.
+        if (isSliced)
+        {
+            activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0.1f, 0);
+        }
+        else
+        {
+            activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
+        }
+        
         activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
         activeHeartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
 
@@ -208,6 +222,9 @@ public class M2HeartControls : MonoBehaviour
         sinusHeartModel.SetActive(false);
         aFlutHeartModel.SetActive(false);
         avnrtHeartModel.SetActive(false);
+        slicedHeartModel.SetActive(false);
+        
+        isSliced = false;
 
         sinusEKG.SetActive(false);
         aFlutEKG.SetActive(false);
@@ -253,6 +270,9 @@ public class M2HeartControls : MonoBehaviour
         sinusHeartModel.SetActive(false);
         aFibHeartModel.SetActive(false);
         avnrtHeartModel.SetActive(false);
+        slicedHeartModel.SetActive(false);
+
+        isSliced = false;
 
         sinusEKG.SetActive(false);
         aFibEKG.SetActive(false);
@@ -297,6 +317,9 @@ public class M2HeartControls : MonoBehaviour
         sinusHeartModel.SetActive(false);
         aFibHeartModel.SetActive(false);
         aFlutHeartModel.SetActive(false);
+        slicedHeartModel.SetActive(false);
+
+        isSliced = false;
 
         sinusEKG.SetActive(false);
         aFibEKG.SetActive(false);
@@ -342,6 +365,9 @@ public class M2HeartControls : MonoBehaviour
         aFibHeartModel.SetActive(false);
         aFlutHeartModel.SetActive(false);
         avnrtHeartModel.SetActive(false);
+        slicedHeartModel.SetActive(false);
+
+        isSliced = false;
 
         aFibEKG.SetActive(false);
         aFlutEKG.SetActive(false);
@@ -563,9 +589,15 @@ public class M2HeartControls : MonoBehaviour
 
     public void blood()
     {
+        // Toggle the transparency of the heart model for blood.
         if (!isBloodTransparent)
         {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            // if the model is sliced, don't change the material.
+            if (!isSliced)
+            {
+                activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            }
+            
             isBloodTransparent = true;
         }
         else
@@ -573,8 +605,8 @@ public class M2HeartControls : MonoBehaviour
             isBloodTransparent = false;
         }
 
-        // If both blood and electric are not transparent, set the material back to the original.
-        if (!isBloodTransparent && !isElectricTransparent)
+        // If both blood and electric are not transparent, set the material back to the original unless its the slice model.
+        if (!isBloodTransparent && !isElectricTransparent && !isSliced)
         {
             activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
         }
@@ -587,9 +619,15 @@ public class M2HeartControls : MonoBehaviour
 
     public void electric()
     {
+        // Toggle the transparency of the heart model for electric. Unless its the slice model.
         if (!isElectricTransparent)
         {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            // if the model is sliced, don't change the material.
+            if (!isSliced)
+            {
+                activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            }
+
             isElectricTransparent = true;
         }
         else
@@ -597,8 +635,8 @@ public class M2HeartControls : MonoBehaviour
             isElectricTransparent = false;
         }
 
-        // If both blood and electric are not transparent, set the material back to the original.
-        if (!isBloodTransparent && !isElectricTransparent)
+        // If both blood and electric are not transparent, set the material back to the original unless its the slice model..
+        if (!isBloodTransparent && !isElectricTransparent && !isSliced)
         {
             activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
         }
@@ -607,6 +645,25 @@ public class M2HeartControls : MonoBehaviour
         aFibElectricContainer.SetActive(!aFibElectricContainer.activeSelf);
         aFlutElectricContainer.SetActive(!aFlutElectricContainer.activeSelf);
         avnrtElectricContainer.SetActive(!avnrtElectricContainer.activeSelf);
+    }
+
+    public void slice()
+    {
+        // Set the active heart model to the slice model.
+        activeHeartModel = slicedHeartModel;
+
+        activeHeartModel.SetActive(true);
+
+        // Set other models to inactive.
+        sinusHeartModel.SetActive(false);
+        aFibHeartModel.SetActive(false);
+        aFlutHeartModel.SetActive(false);
+        avnrtHeartModel.SetActive(false);
+
+        isSliced = true;
+
+        resetHeartPosition();
+
     }
 
 }
