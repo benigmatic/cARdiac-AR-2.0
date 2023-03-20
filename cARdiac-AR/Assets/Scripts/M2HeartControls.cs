@@ -47,6 +47,14 @@ public class M2HeartControls : MonoBehaviour
 
     public GameObject avnrtBloodContainer;
 
+    public GameObject sinusElectricContainer;
+
+    public GameObject aFibElectricContainer;
+
+    public GameObject aFlutElectricContainer;
+
+    public GameObject avnrtElectricContainer;
+
     public Animator sinusAnim;
 
     public Animator aFibAnim;
@@ -62,6 +70,14 @@ public class M2HeartControls : MonoBehaviour
     public Animator[] aFlutBlood;
 
     public Animator[] avnrtBlood;
+
+    public Animator[] sinusElectric;
+
+    public Animator[] aFibElectric;
+
+    public Animator[] aFlutElectric;
+
+    public Animator[] avnrtElectric;
 
     public VideoPlayer sinusVideo;
 
@@ -87,7 +103,9 @@ public class M2HeartControls : MonoBehaviour
 
     private Material originalMaterial;
 
-    private bool isTransparent = false;
+    private bool isBloodTransparent = false;
+
+    private bool isElectricTransparent = false;
 
     private float currentTime = 0f;
     private float startingTime = 0.1f;
@@ -114,6 +132,11 @@ public class M2HeartControls : MonoBehaviour
         aFibBloodContainer.SetActive(false);
         aFlutBloodContainer.SetActive(false);
         avnrtBloodContainer.SetActive(false);
+
+        sinusElectricContainer.SetActive(false);
+        aFibElectricContainer.SetActive(false);
+        aFlutElectricContainer.SetActive(false);
+        avnrtElectricContainer.SetActive(false);
 
         originalMaterial = activeHeartModel.GetComponent<Renderer>().material;
 
@@ -194,7 +217,7 @@ public class M2HeartControls : MonoBehaviour
         resetHeartPosition();
 
         // If the heart was transparent before switching, make it transparent again.
-        if (isTransparent)
+        if (isBloodTransparent || isElectricTransparent)
         {
             activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
         }
@@ -238,7 +261,7 @@ public class M2HeartControls : MonoBehaviour
         resetHeartPosition();
 
         // If the heart was transparent before switching, make it transparent again.
-        if (isTransparent)
+        if (isBloodTransparent || isElectricTransparent)
         {
             activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
         }
@@ -282,7 +305,7 @@ public class M2HeartControls : MonoBehaviour
         resetHeartPosition();
 
         // If the heart was transparent before switching, make it transparent again.
-        if (isTransparent)
+        if (isBloodTransparent || isElectricTransparent)
         {
             activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
         }
@@ -327,7 +350,7 @@ public class M2HeartControls : MonoBehaviour
         resetHeartPosition();
 
         // If the heart was transparent before switching, make it transparent again.
-        if (isTransparent)
+        if (isBloodTransparent || isElectricTransparent)
         {
             activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
         }
@@ -382,6 +405,26 @@ public class M2HeartControls : MonoBehaviour
         {
             animator.SetFloat("Speed", 0.5f);
         }
+
+        foreach (Animator animator in sinusElectric)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in aFibElectric)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in aFlutElectric)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
+
+        foreach (Animator animator in avnrtElectric)
+        {
+            animator.SetFloat("Speed", 0.5f);
+        }
     }
 
     public void normal()
@@ -414,6 +457,26 @@ public class M2HeartControls : MonoBehaviour
         }
 
         foreach (Animator animator in avnrtBlood)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in sinusElectric)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in aFibElectric)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in aFlutElectric)
+        {
+            animator.SetFloat("Speed", 1f);
+        }
+
+        foreach (Animator animator in avnrtElectric)
         {
             animator.SetFloat("Speed", 1f);
         }
@@ -452,6 +515,26 @@ public class M2HeartControls : MonoBehaviour
         {
             animator.SetFloat("Speed", 1.5f);
         }
+
+        foreach (Animator animator in sinusElectric)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in aFibElectric)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in aFlutElectric)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
+
+        foreach (Animator animator in avnrtElectric)
+        {
+            animator.SetFloat("Speed", 1.5f);
+        }
     }
 
     public void setHeartInactive()
@@ -480,15 +563,20 @@ public class M2HeartControls : MonoBehaviour
 
     public void blood()
     {
-        if (!isTransparent)
+        if (!isBloodTransparent)
         {
             activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
-            isTransparent = true;
+            isBloodTransparent = true;
         }
         else
         {
+            isBloodTransparent = false;
+        }
+
+        // If both blood and electric are not transparent, set the material back to the original.
+        if (!isBloodTransparent && !isElectricTransparent)
+        {
             activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
-            isTransparent = false;
         }
 
         sinusBloodContainer.SetActive(!sinusBloodContainer.activeSelf);
@@ -497,9 +585,28 @@ public class M2HeartControls : MonoBehaviour
         avnrtBloodContainer.SetActive(!avnrtBloodContainer.activeSelf);
     }
 
-    public void ResetMaterial()
+    public void electric()
     {
-        activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
+        if (!isElectricTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            isElectricTransparent = true;
+        }
+        else
+        {
+            isElectricTransparent = false;
+        }
+
+        // If both blood and electric are not transparent, set the material back to the original.
+        if (!isBloodTransparent && !isElectricTransparent)
+        {
+            activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
+        }
+
+        sinusElectricContainer.SetActive(!sinusElectricContainer.activeSelf);
+        aFibElectricContainer.SetActive(!aFibElectricContainer.activeSelf);
+        aFlutElectricContainer.SetActive(!aFlutElectricContainer.activeSelf);
+        avnrtElectricContainer.SetActive(!avnrtElectricContainer.activeSelf);
     }
 
 }
