@@ -1,12 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 
+public class CaseQuestion
+{
+    public int CID, grade;
+    public string Description, Rhythm, AnswerDescription, A, B, C, AnswerChoice, time;
+
+    public CaseQuestion(string q, string r, string d, string a, string b, string c)
+    {
+        Description = q;
+        Rhythm = r;
+        AnswerDescription = d;
+        A = a;
+        B = b;
+        C = c;
+    }
+
+    public static CaseQuestion CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<CaseQuestion>(jsonString);
+    }
+}
+
+
 public class CaseManager : MonoBehaviour
 {
+    public CaseQuestion[] caseQuestions;
+
+    // public DataManager savedData;
+
     public GameObject sinusHeartModel;
 
     public GameObject aFibHeartModel;
@@ -44,9 +75,13 @@ public class CaseManager : MonoBehaviour
 
     public InteractableToggleCollection toggleCollection;
 
-    private int answerChoice = 0;
+    // Stopwatch watch = new Stopwatch();
 
-    private int correctAnswer = 0;
+    // TimeSpan time;
+
+    private string resultSelection;
+
+    private string correctAnswer;
 
     private int currentCaseIndex = 0;
 
@@ -59,6 +94,12 @@ public class CaseManager : MonoBehaviour
     void Start()
     {
         resultPrompt.SetActive(false);
+
+        // Get cases data.
+        StartCoroutine(GetRequest(caseQuestions));
+
+        // DataObj = GameObject.FindWithTag("Data");
+        // savedData = DataObj.GetComponent<DataManager>();
     }
 
     // Update is called once per frame
@@ -71,43 +112,25 @@ public class CaseManager : MonoBehaviour
     {
         currentCaseIndex = caseNum;
 
+        caseQuestionText.text = caseQuestions[currentCaseIndex].Description;
+        resultDescription.text = caseQuestions[currentCaseIndex].AnswerDescription;
+        correctAnswer = caseQuestions[currentCaseIndex].Rhythm;
+
         if (currentCaseIndex == 0)
         {
             caseTitle.text = "Case 1";
-            caseQuestionText.text = "A 49-year-old man presents to the emergency department with palpatations. " +
-            "He has felt fatigued all day and the feeling got worse after drinking alcohol. " +
-            "The animation represents the patient's cardiac activity. " +
-            "Which of the following ECG strips best fits the patient's arrhythmia?";
-            resultDescription.text = "The ECG shows indistinct P waves with QRS complexes at irregular intervals. " +
-            "Alcohol consumption is a risk factor for atrial fibrillation.";
-            correctAnswer = 2;
             SetAnswerImages();
             atrialFibr();
         }
         else if (currentCaseIndex == 1)
         {
             caseTitle.text = "Case 2";
-            caseQuestionText.text = "A 60-year-old woman presents to her physician feeling lightheaded and like her heart is racing. " +
-            "Patient history is significant for atrial fibrillation for which she is currently taking the antiarrhythmic drug propafenone. " +
-            "The animation represents the patient's cardiac activity. " +
-            "Which of the following ECG strips best fits the patient's arrhythmia?";
-            resultDescription.text = "The ECG demonstrates the sawtooth pattern with 2:1 conduction. " +
-            "The proarrhythmia effects of the drug have induced atrial flutter.";
-            correctAnswer = 2;
             SetAnswerImages();
             atrialFlut();
         }
         else if (currentCaseIndex == 2)
         {
             caseTitle.text = "Case 3";
-            caseQuestionText.text = "A 56-year-old man presents to the emergency department with palpitations shortness of breath and a " + 
-            "pulsing sensation in his neck. The patient recalls exercising just prior to the onset of symptoms. " + 
-            "The animation represents the patient's cardiac activity. " + 
-            "Which of the following ECG strips best fits the patient's arrhythmia?";
-            resultDescription.text = "The ECG reflects AVNRT. Notice the tachycardia and retrograde P waves (upward deflections) " +
-            "after the QRS complex (large downward deflections). The pulsing sensation in the neck results from the atria contracting " +
-            "against a closed tricuspid valve because the atria and ventricles can contract nearly simultaneously.";
-            correctAnswer = 3;
             SetAnswerImages();
             avnrt();
         }
@@ -117,6 +140,12 @@ public class CaseManager : MonoBehaviour
     {
         // Save the current case number to previous case.
         previousCaseIndex = currentCaseIndex;
+
+        // Record the time the case was completed.
+        // watch.Stop();
+        // time = watch.Elapsed;
+        // caseQuestions[currentCaseIndex].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        // Debug.Log(caseQuestions[currentCaseIndex].time);
 
         if (currentCaseIndex < 2)
         {
@@ -135,6 +164,13 @@ public class CaseManager : MonoBehaviour
             submitButton.SetActive(true);
             DeselectAllToggles();
         }
+
+        // Upload data to the database.
+        // StartCoroutine(Upload());
+
+        // Reset the stopwatch and start it again.
+        // watch = new Stopwatch(); // Creates new stopwatch so time does not add together
+        // watch.Start();
     }
 
     public void previousCase()
@@ -153,12 +189,27 @@ public class CaseManager : MonoBehaviour
 
     public void getAnswer(int answer)
     {
-        answerChoice = answer;
+
+        if (answer == 1)
+        {
+            resultSelection = caseQuestions[currentCaseIndex].A;
+        }
+        else if (answer == 2)
+        {
+            resultSelection = caseQuestions[currentCaseIndex].B;
+        }
+        else if (answer == 3)
+        {
+            resultSelection = caseQuestions[currentCaseIndex].C;
+        }
     }
 
     public void Submit()
     {
         submitButton.SetActive(false);
+
+        // Save answer to the case.
+        caseQuestions[currentCaseIndex].AnswerChoice = resultSelection;
 
         // Only show previous case button if user has already gone through a case.
         if (previousCaseIndex != -1)
@@ -170,12 +221,15 @@ public class CaseManager : MonoBehaviour
             previousCaseButton.SetActive(false);
         }
 
-        if (answerChoice == correctAnswer)
+        if (resultSelection == correctAnswer)
         {
             resultPrompt.SetActive(true);
             correctPrompt.SetActive(true);
             incorrectPrompt.SetActive(false);
             resultTitle.text = "Correct";
+
+            // Assign grade to the case.
+            caseQuestions[currentCaseIndex].grade = 100;
         }
         else
         {
@@ -183,6 +237,9 @@ public class CaseManager : MonoBehaviour
             incorrectPrompt.SetActive(true);
             correctPrompt.SetActive(false);
             resultTitle.text = "Incorrect";
+
+            // Assign grade to the case.
+            caseQuestions[currentCaseIndex].grade = 0;
         }
     }
 
@@ -278,5 +335,98 @@ public class CaseManager : MonoBehaviour
         resetHeartPosition();
     }
 
+    IEnumerator GetRequest(CaseQuestion[] cases)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        int val = (string.Compare(sceneName, "M1HeartScene") == 0) ? 1 : 2;
+        string uri = "https://hemo-cardiac.azurewebsites.net//cases.php?var1=" + val;
+
+        Debug.Log("Checking request for " + uri);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            // Check if this got here.
+            Debug.Log("Here");
+
+            // If webRequest fails or bad uri gets hardcoded case data, else gets case data from database
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == "No Cases found")
+            {
+                Debug.Log("Couldn't connect to website when retrieving data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+
+                // Skips to appropiate JSON data, excludes {"Cases":[
+                string casesPrompts = webRequest.downloadHandler.text.Substring(11);
+                string[] promptsArray = casesPrompts.Split('{');
+                caseQuestions = new CaseQuestion[promptsArray.Length];
+
+                // Formats json to be {"Prompt"...}, adds deleted '{' and removes trailing ','
+                for (int i = 0; i < promptsArray.Length; i++)
+                {
+                    promptsArray[i] = promptsArray[i].Insert(0, "{");
+                    promptsArray[i] = promptsArray[i].Remove(promptsArray[i].Length - 1);
+
+                    // Removes ']' from the end of the last Prompt Answer pair
+                    if (i == promptsArray.Length - 1)
+                        promptsArray[i] = promptsArray[i].Remove(promptsArray[i].Length - 1);
+
+                    caseQuestions[i] = CaseQuestion.CreateFromJSON(promptsArray[i]);
+                }
+            }
+            // Debug.Log(caseQuestions[0].A);
+            // Debug.Log(caseQuestions[1].Rhythm);
+            // Debug.Log(caseQuestions[2].Rhythm);
+            // watch.Start();  // Starts the timer
+        }
+    }
+
+    // IEnumerator Upload()
+    // {
+    //     WWWForm form = new WWWForm();
+    //     Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
+    //     form.AddField("CID", caseQuestions[currentCaseIndex].CID);
+    //     form.AddField("SID", savedData.data.SID);
+    //     form.AddField("Grade", caseQuestions[currentCaseIndex].grade);
+    //     form.AddField("TimeSpent", "00:00:00");
+    //     form.AddField("Answer", caseQuestions[currentCaseIndex].AnswerChoice);
+    //     form.AddField("Login", savedData.data.LoggedIn);
+
+    //     Debug.Log("Form: " + form);
+
+    //     using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addCaseAttempt.php", form))
+    //     {
+    //         yield return webRequest.SendWebRequest();
+
+    //         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+    //         {
+    //             Debug.Log("Couldn't connect to website when uploading data");
+    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+    //             Debug.Log("WebRequest result: " + webRequest.result);
+    //             Debug.Log("WebRequest error: " + webRequest.error);
+    //         }
+    //         else if (webRequest.downloadHandler.text != "New record created successfully")
+    //         {
+    //             Debug.Log("Couldn't upload data");
+    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+    //             Debug.Log("WebRequest result: " + webRequest.result);
+    //             Debug.Log("WebRequest error: " + webRequest.error);
+    //         }
+    //         else
+    //         {
+    //             Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
+    //             Debug.Log("Form upload complete!");
+    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+    //             Debug.Log("WebRequest result: " + webRequest.result);
+    //         }
+    //     }
+    // }
 
 }
