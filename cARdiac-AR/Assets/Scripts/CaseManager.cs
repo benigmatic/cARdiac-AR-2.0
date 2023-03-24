@@ -36,7 +36,7 @@ public class CaseManager : MonoBehaviour
 {
     public CaseQuestion[] caseQuestions;
 
-    // public DataManager savedData;
+    public DataManager savedData;
 
     public GameObject sinusHeartModel;
 
@@ -75,11 +75,11 @@ public class CaseManager : MonoBehaviour
 
     public InteractableToggleCollection toggleCollection;
 
-    // Stopwatch watch = new Stopwatch();
-
-    // TimeSpan time;
+    Stopwatch watch = new Stopwatch();
+    TimeSpan time;
 
     private string resultSelection;
+    private string answerSelected;
 
     private string correctAnswer;
 
@@ -134,6 +134,8 @@ public class CaseManager : MonoBehaviour
             SetAnswerImages();
             avnrt();
         }
+
+        watch.Start();  // Starts the timer
     }
 
     public void nextCase()
@@ -142,10 +144,10 @@ public class CaseManager : MonoBehaviour
         previousCaseIndex = currentCaseIndex;
 
         // Record the time the case was completed.
-        // watch.Stop();
-        // time = watch.Elapsed;
-        // caseQuestions[currentCaseIndex].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
-        // Debug.Log(caseQuestions[currentCaseIndex].time);
+        watch.Stop();
+        time = watch.Elapsed;
+        caseQuestions[currentCaseIndex].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        Debug.Log(caseQuestions[currentCaseIndex].time);
 
         if (currentCaseIndex < 2)
         {
@@ -165,16 +167,19 @@ public class CaseManager : MonoBehaviour
             DeselectAllToggles();
         }
 
-        // Upload data to the database.
-        // StartCoroutine(Upload());
-
         // Reset the stopwatch and start it again.
-        // watch = new Stopwatch(); // Creates new stopwatch so time does not add together
-        // watch.Start();
+        watch = new Stopwatch(); // Creates new stopwatch so time does not add together
+        watch.Start();
     }
 
     public void previousCase()
     {
+        // Record the time the case was completed.
+        watch.Stop();
+        time = watch.Elapsed;
+        caseQuestions[currentCaseIndex].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        Debug.Log(caseQuestions[currentCaseIndex].time);
+
         // Set the current case to the previous case.
         currentCaseIndex = previousCaseIndex;
 
@@ -185,6 +190,10 @@ public class CaseManager : MonoBehaviour
         resultPrompt.SetActive(false);
         submitButton.SetActive(true);
         DeselectAllToggles();
+
+        // Reset the stopwatch and start it again.
+        watch = new Stopwatch(); // Creates new stopwatch so time does not add together
+        watch.Start();
     }
 
     public void getAnswer(int answer)
@@ -193,23 +202,32 @@ public class CaseManager : MonoBehaviour
         if (answer == 1)
         {
             resultSelection = caseQuestions[currentCaseIndex].A;
+            answerSelected = "A";
         }
         else if (answer == 2)
         {
             resultSelection = caseQuestions[currentCaseIndex].B;
+            answerSelected = "B";
         }
         else if (answer == 3)
         {
             resultSelection = caseQuestions[currentCaseIndex].C;
+            answerSelected = "C";
         }
     }
 
     public void Submit()
     {
         submitButton.SetActive(false);
+        // Gets time elapsed and countines timer, timer resets on next case
+        watch.Stop();
+        time = watch.Elapsed;
+        caseQuestions[currentCaseIndex].time = time.Hours.ToString() + ":" + time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        Debug.Log(caseQuestions[currentCaseIndex].time);
+        watch.Start();
 
         // Save answer to the case.
-        caseQuestions[currentCaseIndex].AnswerChoice = resultSelection;
+        caseQuestions[currentCaseIndex].AnswerChoice = answerSelected;
 
         // Only show previous case button if user has already gone through a case.
         if (previousCaseIndex != -1)
@@ -241,6 +259,9 @@ public class CaseManager : MonoBehaviour
             // Assign grade to the case.
             caseQuestions[currentCaseIndex].grade = 0;
         }
+
+        // Upload data to the database
+        StartCoroutine(Upload());
     }
 
     // This will deselect all the toggle buttons.
@@ -384,49 +405,48 @@ public class CaseManager : MonoBehaviour
             // Debug.Log(caseQuestions[0].A);
             // Debug.Log(caseQuestions[1].Rhythm);
             // Debug.Log(caseQuestions[2].Rhythm);
-            // watch.Start();  // Starts the timer
         }
     }
 
-    // IEnumerator Upload()
-    // {
-    //     WWWForm form = new WWWForm();
-    //     Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
-    //     form.AddField("CID", caseQuestions[currentCaseIndex].CID);
-    //     form.AddField("SID", savedData.data.SID);
-    //     form.AddField("Grade", caseQuestions[currentCaseIndex].grade);
-    //     form.AddField("TimeSpent", "00:00:00");
-    //     form.AddField("Answer", caseQuestions[currentCaseIndex].AnswerChoice);
-    //     form.AddField("Login", savedData.data.LoggedIn);
+    IEnumerator Upload()
+    {
+        WWWForm form = new WWWForm();
+        Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
+        form.AddField("CID", caseQuestions[currentCaseIndex].CID);
+        form.AddField("SID", savedData.data.SID);
+        form.AddField("Grade", caseQuestions[currentCaseIndex].grade);
+        form.AddField("TimeSpent", "00:00:00");
+        form.AddField("Answer", caseQuestions[currentCaseIndex].AnswerChoice);
+        form.AddField("Login", savedData.data.LoggedIn);
 
-    //     Debug.Log("Form: " + form);
+        Debug.Log("Form: " + form);
 
-    //     using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addCaseAttempt.php", form))
-    //     {
-    //         yield return webRequest.SendWebRequest();
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addCaseAttempt.php", form))
+        {
+            yield return webRequest.SendWebRequest();
 
-    //         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
-    //         {
-    //             Debug.Log("Couldn't connect to website when uploading data");
-    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
-    //             Debug.Log("WebRequest result: " + webRequest.result);
-    //             Debug.Log("WebRequest error: " + webRequest.error);
-    //         }
-    //         else if (webRequest.downloadHandler.text != "New record created successfully")
-    //         {
-    //             Debug.Log("Couldn't upload data");
-    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
-    //             Debug.Log("WebRequest result: " + webRequest.result);
-    //             Debug.Log("WebRequest error: " + webRequest.error);
-    //         }
-    //         else
-    //         {
-    //             Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
-    //             Debug.Log("Form upload complete!");
-    //             Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
-    //             Debug.Log("WebRequest result: " + webRequest.result);
-    //         }
-    //     }
-    // }
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("Couldn't connect to website when uploading data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else if (webRequest.downloadHandler.text != "New record created successfully")
+            {
+                Debug.Log("Couldn't upload data");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+                Debug.Log("WebRequest error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log("SID: " + savedData.data.SID + " LoggedIn: " + savedData.data.LoggedIn);
+                Debug.Log("Form upload complete!");
+                Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
+                Debug.Log("WebRequest result: " + webRequest.result);
+            }
+        }
+    }
 
 }
