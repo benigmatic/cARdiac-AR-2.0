@@ -24892,7 +24892,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784592622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.055, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0.055, y: 0.05, z: 0.1}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 2099255046}
@@ -43061,7 +43061,8 @@ MonoBehaviour:
   casesSection: {fileID: 423010525}
   casesObjects: {fileID: 1847159094}
   heartSection: {fileID: 410100471}
-  heartModel: {fileID: 2102860544}
+  heartModels:
+  - {fileID: 309835579}
   promptTitle: {fileID: 2743667571747552618}
   promptText: {fileID: 2960338851957242163}
 --- !u!114 &1413618086
@@ -43083,10 +43084,10 @@ MonoBehaviour:
   - {fileID: 115899577}
   - {fileID: 1423433248}
   - {fileID: 1433822937}
-  - {fileID: 0}
+  - {fileID: 1382769379}
   - {fileID: 1801117719}
   - {fileID: 1875116980}
-  - {fileID: 0}
+  - {fileID: 1030496482}
   - {fileID: 713973223}
   - {fileID: 1248876434}
   currentIndex: 99
@@ -44974,6 +44975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327e874abe27f984f9560d148918cf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savedData: {fileID: 0}
   sinusHeartModel: {fileID: 1340113712}
   aFibHeartModel: {fileID: 371718171}
   aFlutHeartModel: {fileID: 1289166197}

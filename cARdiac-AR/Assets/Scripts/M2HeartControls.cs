@@ -57,6 +57,8 @@ public class M2HeartControls : MonoBehaviour
 
     public GameObject avnrtElectricContainer;
 
+    public GameObject[] upcomingSlicedHeartFeatures;
+
     public Animator sinusAnim;
 
     public Animator aFibAnim;
@@ -93,6 +95,8 @@ public class M2HeartControls : MonoBehaviour
 
     public TMP_Text promptText;
 
+    public TMP_Text[] comingSoonText;
+
     private Vector3 heartPos;
 
     private Vector3 anchorPos;
@@ -103,7 +107,7 @@ public class M2HeartControls : MonoBehaviour
 
     public Material transparentMaterial;
 
-    private Material originalMaterial;
+    public Material originalMaterial;
 
     private bool isBloodTransparent = false;
 
@@ -114,6 +118,8 @@ public class M2HeartControls : MonoBehaviour
     private float currentTime = 0f;
     private float startingTime = 0.1f;
 
+
+    // Speed states refer to the speed of the heart rate animation.
     // 0 - slow, 1 - normal, 2 - fast
     private int speedState = 1;
 
@@ -142,8 +148,6 @@ public class M2HeartControls : MonoBehaviour
         aFlutElectricContainer.SetActive(false);
         avnrtElectricContainer.SetActive(false);
 
-        originalMaterial = activeHeartModel.GetComponent<Renderer>().material;
-
     }
 
     // Update is called once per frame
@@ -166,7 +170,7 @@ public class M2HeartControls : MonoBehaviour
     {
         Debug.Log("Heart reset is called!");
 
-        // Position the heart model higher if it's sliced.
+        // This is the reset values for the slice heart models. The heart model needs to be positioned higher if it's sliced.
         if (isSliced)
         {
             slicedHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0.1f, 0);
@@ -175,13 +179,22 @@ public class M2HeartControls : MonoBehaviour
         }
         else
         {
+            // This is the reset values for the default heart models.
             activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
             activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
             activeHeartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
+
+            // If the heart was transparent before switching, make it transparent again.
+            if (isBloodTransparent || isElectricTransparent)
+            {
+                activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
+            }
+            else
+            {
+                activeHeartModel.GetComponent<Renderer>().material = originalMaterial;
+            }
         }
         
-        
-
         if (speedState == 0)
         {
             slow();
@@ -196,6 +209,8 @@ public class M2HeartControls : MonoBehaviour
         }
     }
 
+
+    // Toggle the anatomy labels for the heart models.
     public void anatomy()
     {
 
@@ -230,14 +245,7 @@ public class M2HeartControls : MonoBehaviour
         aFlutEKG.SetActive(false);
         avnrtEKG.SetActive(false);
 
-
         resetHeartPosition();
-
-        // If the heart was transparent before switching, make it transparent again.
-        if (isBloodTransparent || isElectricTransparent)
-        {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
-        }
 
         if (speedState == 0)
         {
@@ -277,11 +285,6 @@ public class M2HeartControls : MonoBehaviour
 
         resetHeartPosition();
 
-        // If the heart was transparent before switching, make it transparent again.
-        if (isBloodTransparent || isElectricTransparent)
-        {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
-        }
 
         if (speedState == 0)
         {
@@ -321,12 +324,6 @@ public class M2HeartControls : MonoBehaviour
 
         resetHeartPosition();
 
-        // If the heart was transparent before switching, make it transparent again.
-        if (isBloodTransparent || isElectricTransparent)
-        {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
-        }
-
         if (speedState == 0)
         {
             slow();
@@ -365,12 +362,6 @@ public class M2HeartControls : MonoBehaviour
         avnrtEKG.SetActive(false);
 
         resetHeartPosition();
-
-        // If the heart was transparent before switching, make it transparent again.
-        if (isBloodTransparent || isElectricTransparent)
-        {
-            activeHeartModel.GetComponent<Renderer>().material = transparentMaterial;
-        }
 
         if (speedState == 0)
         {
@@ -638,12 +629,36 @@ public class M2HeartControls : MonoBehaviour
             isSliced = true;
             activeHeartModel.SetActive(false);
             slicedHeartModel.SetActive(true);
+            
+            // Hide all the upcoming features for the sliced heart model.
+            foreach (GameObject feature in upcomingSlicedHeartFeatures)
+            {
+                feature.SetActive(false);
+            }
+
+            // Show coming soon text for the sliced heart model.
+            foreach (TMP_Text text in comingSoonText)
+            {
+                text.gameObject.SetActive(true);
+            }
         }
         else
         {
             isSliced = false;
             activeHeartModel.SetActive(true);
             slicedHeartModel.SetActive(false);
+
+            // Show features for the other heart models.
+            foreach (GameObject feature in upcomingSlicedHeartFeatures)
+            {
+                feature.SetActive(true);
+            }
+
+            // Hide coming soon text for the other heart models.
+            foreach (TMP_Text text in comingSoonText)
+            {
+                text.gameObject.SetActive(false);
+            }
         }
 
         resetHeartPosition();
