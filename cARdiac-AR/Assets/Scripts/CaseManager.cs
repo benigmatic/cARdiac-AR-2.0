@@ -36,7 +36,15 @@ public class CaseManager : MonoBehaviour
 {
     public CaseQuestion[] caseQuestions;
 
+    List<Dictionary<string, object>> data;
+
+    private int numberofM1Questions = 0;
+
+    private int numberofM2Questions = 0;
+
     public DataManager savedData;
+
+    public GameObject DataObj;
 
     public GameObject sinusHeartModel;
 
@@ -94,6 +102,17 @@ public class CaseManager : MonoBehaviour
     void Start()
     {
         resultPrompt.SetActive(false);
+        data = CSVReader.Read("cardiac_cases");
+        DataObj = GameObject.FindWithTag("Data");
+        savedData = DataObj.GetComponent<DataManager>();
+        int i = 0;
+        while ((int)data[i]["Section"] == 1)
+        {
+            numberofM1Questions++;
+            i++;
+        }
+
+        numberofM2Questions = data.Count - numberofM1Questions;
 
         // Get cases data.
         StartCoroutine(GetRequest(caseQuestions));
@@ -356,6 +375,15 @@ public class CaseManager : MonoBehaviour
         resetHeartPosition();
     }
 
+    public void m2Cases(CaseQuestion[] caseQuestionsM2)
+    {
+        for (int i = 0; i < numberofM2Questions; i++)
+        {
+            caseQuestionsM2[i] = new CaseQuestion((string)data[i + numberofM1Questions]["Description"], (string)data[i + numberofM1Questions]["Rhythm"],
+                (string)data[i + numberofM1Questions]["AnswerDescription"], (string)data[i + numberofM1Questions]["A"], (string)data[i + numberofM1Questions]["B"], (string)data[i + numberofM1Questions]["C"]);
+        }
+    }
+
     IEnumerator GetRequest(CaseQuestion[] cases)
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -379,6 +407,9 @@ public class CaseManager : MonoBehaviour
                 Debug.Log("WebRequest text: " + webRequest.downloadHandler.text);
                 Debug.Log("WebRequest result: " + webRequest.result);
                 Debug.Log("WebRequest error: " + webRequest.error);
+
+                caseQuestions = new CaseQuestion[numberofM2Questions];
+                m2Cases(caseQuestions);
             }
             else
             {
@@ -415,11 +446,13 @@ public class CaseManager : MonoBehaviour
         form.AddField("CID", caseQuestions[currentCaseIndex].CID);
         form.AddField("SID", savedData.data.SID);
         form.AddField("Grade", caseQuestions[currentCaseIndex].grade);
-        form.AddField("TimeSpent", "00:00:00");
+        form.AddField("TimeSpent", caseQuestions[currentCaseIndex].time);
         form.AddField("Answer", caseQuestions[currentCaseIndex].AnswerChoice);
         form.AddField("Login", savedData.data.LoggedIn);
 
         Debug.Log("Form: " + form);
+
+        Debug.Log("Time: " + caseQuestions[currentCaseIndex].time + " Grade: " + caseQuestions[currentCaseIndex].grade);
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post("https://hemo-cardiac.azurewebsites.net/addCaseAttempt.php", form))
         {
