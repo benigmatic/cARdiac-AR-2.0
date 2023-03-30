@@ -47,7 +47,17 @@ public class LoginValidation : MonoBehaviour
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == error1)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                errorText.text = "No connection detected, use Guest Login";
+                errorText.gameObject.SetActive(true);
+                errorText.enabled = true;
+                Debug.Log(webRequest.downloadHandler.text);
+                Debug.Log(webRequest.result);
+                Debug.Log(webRequest.error);
+                Debug.Log("Bad Connection");
+            }
+            else if (webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.downloadHandler.text == error1)
             {
                 errorText.text = webRequest.downloadHandler.text;
                 errorText.gameObject.SetActive(true);
