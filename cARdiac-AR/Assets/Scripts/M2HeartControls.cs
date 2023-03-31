@@ -182,7 +182,7 @@ public class M2HeartControls : MonoBehaviour
             // This is the reset values for the default heart models.
             activeHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0, 0);
             activeHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
-            activeHeartModel.transform.localScale =  new Vector3(4.8f, 4.8f, 4.8f);
+            activeHeartModel.transform.localScale =  new Vector3(0.1f, 0.1f, 0.1f);
 
             // If the heart was transparent before switching, make it transparent again.
             if (isBloodTransparent || isElectricTransparent)

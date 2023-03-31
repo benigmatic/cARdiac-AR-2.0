@@ -19,7 +19,7 @@ public class NavBarManager : MonoBehaviour
 
     public GameObject heartSection;
 
-    public GameObject[] heartModels;
+    public GameObject heartModels;
 
     public TMP_Text promptTitle;
 
@@ -53,7 +53,7 @@ public class NavBarManager : MonoBehaviour
             promptTitle.text = "Welcome to the UCF Cardiac M1 Section!";
             promptText.text = "Here you can manipulate and examine a 3D augmented heart model. " + 
             "As well as learn about the determinants of cardiac output and view forms of heart rates. " +
-            "Furthermore, test your knowledge and understanding by navigating to the flashcards or cases tabs!";
+            "Furthermore, test your knowledge and understanding by navigating to the flashcards tab!";
         }
         // In case there is ever a start prompt for M2.
         // else if(String.Equals(sceneName, m2SceneName))
@@ -70,10 +70,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(false);
         casesObjects.SetActive(false);
 
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(true);
-        }
+        heartModels.SetActive(true);
 
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -93,10 +90,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(false);
         casesObjects.SetActive(false);
 
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(true);
-        }
+        heartModels.SetActive(true);
 
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -115,10 +109,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(false);
         casesObjects.SetActive(false);
 
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(true);
-        }
+        heartModels.SetActive(true);
 
         FindObjectOfType<M1HeartControls>().resetHeartPosition();
 
@@ -138,10 +129,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(false);
         casesObjects.SetActive(false);
         
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(false);
-        }
+        heartModels.SetActive(false);
     }
 
     public void cases()
@@ -151,10 +139,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(true);
         casesObjects.SetActive(true);
         
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(false);
-        }
+        heartModels.SetActive(false);
     }
 
 
@@ -165,10 +150,7 @@ public class NavBarManager : MonoBehaviour
         casesSection.SetActive(false);
         casesObjects.SetActive(false);
         
-        foreach (GameObject heartmodel in heartModels)
-        {
-            heartmodel.SetActive(true);
-        }
+        heartModels.SetActive(true);
 
         FindObjectOfType<M2HeartControls>().resetHeartPosition();
     }
