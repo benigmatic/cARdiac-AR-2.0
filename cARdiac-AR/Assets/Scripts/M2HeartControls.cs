@@ -67,6 +67,8 @@ public class M2HeartControls : MonoBehaviour
 
     public Animator avnrtAnim;
 
+    public Animator sliceAnim;
+
     public Animator[] sinusBlood;
 
     public Animator[] aFibBlood;
@@ -173,7 +175,7 @@ public class M2HeartControls : MonoBehaviour
         // This is the reset values for the slice heart models. The heart model needs to be positioned higher if it's sliced.
         if (isSliced)
         {
-            slicedHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0.1f, 0);
+            slicedHeartModel.transform.position = resetAnchor.transform.position + new Vector3(0, 0.075f, 0);
             slicedHeartModel.transform.eulerAngles = resetAnchor.transform.eulerAngles;
             slicedHeartModel.transform.localScale = new Vector3(4.8f, 4.8f, 4.8f);
         }
@@ -389,6 +391,9 @@ public class M2HeartControls : MonoBehaviour
         aFlutAnim.SetFloat("Speed", 0.5f);
         avnrtAnim.SetFloat("Speed", 0.5f);
 
+        // Slice has different animation speeds since it's original animation is 90 frames per second.
+        sliceAnim.SetFloat("Speed", 0.33335f);
+
         sinusVideo.playbackSpeed  = 0.5f;
         aFibVideo.playbackSpeed  = 0.5f;
         aFlutVideo.playbackSpeed  = 0.5f;
@@ -444,6 +449,9 @@ public class M2HeartControls : MonoBehaviour
         aFlutAnim.SetFloat("Speed", 1f);
         avnrtAnim.SetFloat("Speed", 1f);
 
+        // Slice has different animation speeds since it's original animation is 90 frames per second.
+        sliceAnim.SetFloat("Speed", .6667f);
+
         sinusVideo.playbackSpeed  = 1f;
         aFibVideo.playbackSpeed  = 1f;
         aFlutVideo.playbackSpeed  = 1f;
@@ -498,6 +506,9 @@ public class M2HeartControls : MonoBehaviour
         aFibAnim.SetFloat("Speed", 1.5f);
         aFlutAnim.SetFloat("Speed", 1.5f);
         avnrtAnim.SetFloat("Speed", 1.5f);
+
+        // Slice has different animation speeds since it's original animation is 90 frames per second.
+        sliceAnim.SetFloat("Speed", 1.00005f);
 
         sinusVideo.playbackSpeed  = 1.5f;
         aFibVideo.playbackSpeed  = 1.5f;
@@ -641,6 +652,9 @@ public class M2HeartControls : MonoBehaviour
             {
                 text.gameObject.SetActive(true);
             }
+
+            // Hide description text.
+            promptText.gameObject.SetActive(false);
         }
         else
         {
@@ -659,7 +673,32 @@ public class M2HeartControls : MonoBehaviour
             {
                 text.gameObject.SetActive(false);
             }
+
+            // Show description text.
+            promptText.gameObject.SetActive(true);
         }
+
+        if (speedState == 0)
+        {
+            slow();
+        }
+        else if (speedState == 1)
+        {
+            normal();
+        }
+        else if (speedState == 2)
+        {
+            fast();
+        }
+
+        // Slice uses sinus EKG.
+        sinusEKG.SetActive(true);
+
+        aFibEKG.SetActive(false);
+        aFlutEKG.SetActive(false);
+        avnrtEKG.SetActive(false);
+
+        
 
         resetHeartPosition();
 
