@@ -77,6 +77,7 @@ public class CaseManager : MonoBehaviour
 
     public TMP_Text resultDescription;
 
+    // In the scene, these are containers for the answer images.
     public GameObject[] answerDisplay;
     
     public Texture[] answerImages;
@@ -95,7 +96,7 @@ public class CaseManager : MonoBehaviour
 
     private int previousCaseIndex = -1;
 
-    // This is unresponsive button in toggle collection used to reset the toggle collection.
+    // This is an unresponsive, invisible button in toggle collection used to reset the toggle collection.
     private int bufferChoice = 3;
 
     // Start is called before the first frame update
@@ -116,9 +117,6 @@ public class CaseManager : MonoBehaviour
 
         // Get cases data.
         StartCoroutine(GetRequest(caseQuestions));
-
-        // DataObj = GameObject.FindWithTag("Data");
-        // savedData = DataObj.GetComponent<DataManager>();
     }
 
     // Update is called once per frame
@@ -286,6 +284,8 @@ public class CaseManager : MonoBehaviour
     // This will deselect all the toggle buttons.
     public void DeselectAllToggles()
     {
+        // This will set the current index to the bufferChoice, which will deselect all the toggles that are VISIBLE in the scene.
+        // The button at the bufferChoice index is not visible in scene, so it will hold the active selection for toggleCollection component.
         toggleCollection.CurrentIndex = bufferChoice;
     }
 
@@ -433,9 +433,6 @@ public class CaseManager : MonoBehaviour
                     caseQuestions[i] = CaseQuestion.CreateFromJSON(promptsArray[i]);
                 }
             }
-            // Debug.Log(caseQuestions[0].A);
-            // Debug.Log(caseQuestions[1].Rhythm);
-            // Debug.Log(caseQuestions[2].Rhythm);
         }
     }
 

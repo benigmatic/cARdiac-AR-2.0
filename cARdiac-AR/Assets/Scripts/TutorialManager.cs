@@ -71,13 +71,6 @@ public class TutorialManager : MonoBehaviour
             // Cache the heart model current position.
             originalPos = GameObject.Find("HealthyHeart").transform.position;
 
-            // currPos = GameObject.Find("HealthyHeart").transform.position;
-            // modelScale = GameObject.Find("HealthyHeart").transform.localScale;
-            // modelRot = GameObject.Find("HealthyHeart").transform.eulerAngles;
-            // Debug.Log("Scale: " + modelScale.ToString("F4"));
-            // Debug.Log("Rotation: " + modelRot.ToString("F4"));
-            // Debug.Log("Original Position: " + originalPos.ToString("F4"));
-            // Debug.Log("Position: " + currPos.ToString("F4"));
         }
 
         // Rotation prompt.
