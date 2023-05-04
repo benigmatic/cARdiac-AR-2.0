@@ -13,7 +13,7 @@ Designed as an AR educational application for anatomy students at UCFCOM. This i
   * Universal Windows Platform development
   * Game development with Unity
 ### Azure App services
-Hosts the database and PHP app. Owned by previous team. Contact: krivonos.alexandra25@gmail.com
+Hosts the database and PHP app. Owned by previous team. Contact: krivonos.alexandra25@gmail.com <br>
 Github repo for PHP: https://github.com/benigmatic/cardiac-hemo-php
 ## Additional documentation
 Additional sources can be located in documentation folder. 
